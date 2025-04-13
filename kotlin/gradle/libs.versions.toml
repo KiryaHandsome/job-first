@@ -1,0 +1,23 @@
+[versions]
+kodein-di = "7.25.0"
+jackson = "2.18.3"
+jooq = "3.20.3"
+postgresql = "42.7.5"
+postgresql_r2dbc = "1.0.7.RELEASE"
+flyway = "11.6.0"
+jbcrypt = "0.4"
+
+[libraries]
+kodein = { module = "org.kodein.di:kodein-di", version.ref = "kodein-di" }
+jackson = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
+jackson_time = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson" }
+jooq = { module = "org.jooq:jooq", version.ref = "jooq" }
+jooq_codegen = { module = "org.jooq:jooq-codegen", version.ref = "jooq" }
+jooq_meta = { module = "org.jooq:jooq-meta", version.ref = "jooq" }
+postgresql_r2dbc = { module = "org.postgresql:r2dbc-postgresql", version.ref = "postgresql_r2dbc" }
+postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
+flyway = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
+flyway_postgresql = { module = "org.flywaydb:flyway-database-postgresql", version.ref = "flyway" }
+jbcrypt = { module = "org.mindrot:jbcrypt", version.ref = "jbcrypt" }
+
+[plugins]

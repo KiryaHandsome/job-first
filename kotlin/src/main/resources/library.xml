@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration>
+    <!-- Configure the database connection here -->
+    <jdbc>
+        <driver>org.postgresql.Driver</driver>
+        <url>jdbc:postgresql://localhost:5432/job_first</url>
+        <user>postgres</user>
+        <password>password</password>
+    </jdbc>
+
+    <generator>
+        <name>org.jooq.codegen.KotlinGenerator</name>
+
+        <database>
+            <name>org.jooq.meta.postgres.PostgresDatabase</name>
+
+            <!-- The database schema (or in the absence of schema support, in your RDBMS this
+                 can be the owner, user, database name) to be generated -->
+            <inputSchema>public</inputSchema>
+
+            <!-- All elements that are generated from your schema
+                 (A Java regular expression. Use the pipe to separate several expressions)
+                 Watch out for case-sensitivity. Depending on your database, this might be important! -->
+            <includes>.*</includes>
+
+            <!-- All elements that are excluded from your schema
+                 (A Java regular expression. Use the pipe to separate several expressions).
+                 Excludes match before includes, i.e. excludes have a higher priority -->
+            <excludes></excludes>
+        </database>
+
+        <target>
+            <!-- The destination package of your generated classes (within the destination directory) -->
+            <packageName>test.generated</packageName>
+
+            <!-- The destination directory of your generated classes. Using Maven directory layout here -->
+            <directory>C:/test/jooqtest/src/main/java</directory>
+        </target>
+    </generator>
+</configuration>
