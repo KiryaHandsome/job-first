@@ -5,15 +5,22 @@ import com.job.library.common.uuid.Uuid
 import com.job.library.security.PasswordEncoder
 import com.job.core.user.command.RegisterUserCommand
 import com.job.core.user.dao.UserDao
+import com.job.core.user.domain.AccessToken
+import com.job.core.user.domain.UserRole
+import com.job.core.user.domain.UserStatus
 import com.job.core.user.domain.command.CreateUserDomainCommand
+import com.job.core.user.service.TokenManager
 import java.time.Instant
 
 class RegisterUserCommandHandler(
     private val userDao: UserDao,
     private val passwordEncoder: PasswordEncoder,
-) : CommandHandler<RegisterUserCommand, Unit> {
+    private val tokenManager: TokenManager,
+) : CommandHandler<RegisterUserCommand, AccessToken> {
 
-    override suspend fun handle(command: RegisterUserCommand) {
+    override suspend fun handle(command: RegisterUserCommand): AccessToken {
+        validateCommand(command)
+
         val domainCommand = CreateUserDomainCommand(
             id = Uuid.v7(),
             passwordHash = passwordEncoder.encode(command.password),
@@ -21,10 +28,17 @@ class RegisterUserCommandHandler(
             email = command.email,
             emailVerified = false,
             role = command.role,
+            userStatus = UserStatus.ACTIVE,
         )
 
         userDao.create(domainCommand)
 
-        userDao.create(domainCommand)
+        return tokenManager.generateAccessToken(email = command.email, userRole = command.role)
+    }
+
+    private fun validateCommand(command: RegisterUserCommand) {
+        if (command.role == UserRole.ADMIN) {
+            error("Cannot register user with role ${UserRole.ADMIN}")
+        }
     }
 }

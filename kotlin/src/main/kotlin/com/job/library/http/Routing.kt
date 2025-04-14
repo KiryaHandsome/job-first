@@ -18,7 +18,11 @@ fun Application.configurePostRpcEndpoints() {
         post("/api/{uri}") {
             val uri = requireNotNull(call.parameters["uri"]) { "Uri must be specified" }
 
-            val response = router.routePost(uri, call.receive())
+            val response = router.routePost(
+                uri = uri,
+                body = call.receive(),
+                headers = call.request.headers
+            )
 
             call.response.header(
                 HttpHeaders.ContentType,

@@ -1,4 +1,4 @@
-package com.job.library.http
+package com.job.library.http.response
 
 import io.ktor.http.*
 

@@ -78,6 +78,8 @@ class JooqR2dbcContextFactory(
         val select = dslContext
             .select(*fields)
             .from(table)
+            .offset(cursor.getOffset())
+            .limit(cursor.getLimit())
 
         val data = Flux.from(select)
             .map { mapper(it) }

@@ -13,12 +13,18 @@ import com.job.library.http.RpcRouter
 import com.job.library.jooq.JooqR2dbcContextFactory
 import com.job.library.security.PasswordEncoder
 import com.job.core.user.di.userModule
+import com.job.core.user.service.TokenManager
 import com.job.core.vacancy.di.vacancyModule
+import com.job.library.common.security.JwtInfo
+import com.job.library.http.middleware.AuthenticationMiddleware
+import com.job.library.http.middleware.Middleware
+import com.job.library.http.middleware.MiddlewareRegistry
 import org.kodein.di.DI
 import org.kodein.di.allInstances
 import org.kodein.di.bind
 import org.kodein.di.direct
 import org.kodein.di.singleton
+import kotlin.math.sin
 
 
 val mainModule = DI.Module("mainModule") {
@@ -32,6 +38,24 @@ val mainModule = DI.Module("mainModule") {
     }
 
     autoBind<RpcRouter>()
+    autoBind<AuthenticationMiddleware>()
+
+    bind<TokenManager>() with singleton {
+        TokenManager(
+            jwtInfo = JwtInfo(
+                issuer = "com.job.first",
+                audience = "audience",
+                secret = "supersecret"
+            ),
+        )
+    }
+
+    bind<MiddlewareRegistry>() with singleton {
+        MiddlewareRegistry(
+            allInstances<Middleware>()
+        )
+    }
+
 
     bind<ObjectMapper>() with singleton {
         jacksonObjectMapper()
@@ -54,10 +78,13 @@ val mainModule = DI.Module("mainModule") {
     }
 
     bind<PasswordEncoder>() with singleton {
+        // TODO: store secret in env
         PasswordEncoder(
             secretKey = "\$2a\$10\$AVPT05HwxGW.2eXHQmzKBO"
         )
     }
+
+
 }
 
 val di = DI {

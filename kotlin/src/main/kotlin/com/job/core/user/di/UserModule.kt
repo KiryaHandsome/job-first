@@ -1,8 +1,9 @@
 package com.job.core.user.di
 
-import com.job.library.di.autoBind
 import com.job.core.user.dao.UserDao
+import com.job.core.user.handler.LoginUserCommandHandler
 import com.job.core.user.handler.RegisterUserCommandHandler
+import com.job.library.di.autoBind
 import org.kodein.di.DI
 
 val userModule = DI.Module("userModule") {
@@ -12,6 +13,6 @@ val userModule = DI.Module("userModule") {
 
     // handlers
     autoBind<RegisterUserCommandHandler>()
-
+    autoBind<LoginUserCommandHandler>()
 }
 

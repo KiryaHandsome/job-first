@@ -25,6 +25,7 @@ dependencies {
     implementation("io.ktor:ktor-server-core-jvm")
     implementation("io.ktor:ktor-server-netty")
     implementation("io.ktor:ktor-server-core")
+    implementation("io.ktor:ktor-server-auth-jwt")
 
     implementation(libs.kodein)
     implementation(libs.jackson)

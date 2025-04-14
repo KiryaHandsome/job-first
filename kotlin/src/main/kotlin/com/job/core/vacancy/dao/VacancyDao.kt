@@ -8,20 +8,37 @@ import com.job.library.jooq.mapper.RecordMapper
 import com.job.generated.jooq.tables.Vacancy.VACANCY
 import com.job.core.vacancy.command.CreateVacancyCommand
 import com.job.core.vacancy.command.UpdateVacancyCommand
+import com.job.core.vacancy.domain.ExperienceLevel
 import com.job.core.vacancy.domain.Vacancy
+import com.job.core.vacancy.domain.WorkType
+import com.job.core.vacancy.domain.command.CreateVacancyDomainCommand
+import com.job.library.common.money.Currency
+import com.job.library.common.money.Money
+import com.job.library.jooq.findEnumValue
 import java.util.UUID
 
 
 private val vacancyMapper: RecordMapper<Vacancy> = {
+    val salaryCurrency = it.get(VACANCY.SALARY_CURRENCY)
+        ?.let { currency -> Currency.valueOf(currency) }
+
     Vacancy(
         id = it.get(VACANCY.ID),
         title = it.get(VACANCY.TITLE),
         description = it.get(VACANCY.DESCRIPTION),
-        company = "",
-        location = "",
-        salary = "",
-        createdAt = TODO(),
-        editedAt = TODO()
+        publisher = it.get(VACANCY.EMPLOYER_ID), // todo change to publisher?
+        salaryMin = salaryCurrency?.let { currency ->
+            Money(amount = it.get(VACANCY.SALARY_MIN), currency = currency)
+        },
+        salaryMax = salaryCurrency?.let { currency ->
+            Money(amount = it.get(VACANCY.SALARY_MIN), currency = currency)
+        },
+        workType = it.get(VACANCY.WORK_TYPE)?.let { type -> WorkType.valueOf(type) },
+        location = it.get(VACANCY.LOCATION),
+        experienceLevel = it.get(VACANCY.EXPERIENCE_LEVEL)?.let { level -> ExperienceLevel.valueOf(level) },
+        viewsCount = it.get(VACANCY.VIEWS_COUNT),
+        createdAtMillis = it.get(VACANCY.CREATED_AT_MILLIS),
+        editedAtMillis = it.get(VACANCY.EDITED_AT_MILLIS),
     )
 }
 
@@ -52,13 +69,22 @@ class VacancyDao(
         )
     }
 
-    fun create(command: CreateVacancyCommand) {
+    fun create(command: CreateVacancyDomainCommand) {
         jooqR2dbcContextFactory.use {
             insertInto(VACANCY)
-                .set(VACANCY.ID, Uuid.v7()) // todo: move id generation to handler
+                .set(VACANCY.ID, command.id)
                 .set(VACANCY.TITLE, command.title)
                 .set(VACANCY.DESCRIPTION, command.description)
                 .set(VACANCY.LOCATION, command.location)
+                .set(VACANCY.SALARY_MIN, command.salaryMin?.amount)
+                .set(VACANCY.SALARY_MAX, command.salaryMax?.amount)
+                .set(VACANCY.SALARY_CURRENCY, command.salaryMin?.currency?.name)
+                .set(VACANCY.WORK_TYPE, command.workType?.name)
+                .set(VACANCY.EXPERIENCE_LEVEL, command.experienceLevel?.name)
+                .set(VACANCY.VIEWS_COUNT, command.viewsCount)
+                .set(VACANCY.EMPLOYER_ID, command.publisher)
+                .set(VACANCY.CREATED_AT_MILLIS, command.createdAtMillis)
+                .set(VACANCY.EDITED_AT_MILLIS, command.editedAtMillis)
         }
     }
 
