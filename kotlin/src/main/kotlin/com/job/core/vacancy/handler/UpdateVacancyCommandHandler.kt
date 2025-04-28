@@ -1,8 +1,8 @@
 package com.job.core.vacancy.handler
 
-import com.job.library.command.UnitHandler
 import com.job.core.vacancy.command.UpdateVacancyCommand
 import com.job.core.vacancy.dao.VacancyDao
+import com.job.library.command.UnitHandler
 
 class UpdateVacancyCommandHandler(
     private val vacancyDao: VacancyDao,

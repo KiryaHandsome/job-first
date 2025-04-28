@@ -1,22 +1,19 @@
 package com.job.core.vacancy.dao
 
-import com.job.library.common.pagination.Cursor
-import com.job.library.common.pagination.Page
-import com.job.library.common.uuid.Uuid
-import com.job.library.jooq.JooqR2dbcContextFactory
-import com.job.library.jooq.mapper.RecordMapper
-import com.job.generated.jooq.tables.Vacancy.VACANCY
-import com.job.core.vacancy.command.CreateVacancyCommand
 import com.job.core.vacancy.command.UpdateVacancyCommand
 import com.job.core.vacancy.domain.ExperienceLevel
 import com.job.core.vacancy.domain.Vacancy
 import com.job.core.vacancy.domain.WorkType
 import com.job.core.vacancy.domain.command.CreateVacancyDomainCommand
+import com.job.generated.jooq.tables.Vacancy.VACANCY
 import com.job.library.common.money.Currency
 import com.job.library.common.money.Money
-import com.job.library.jooq.findEnumValue
+import com.job.library.common.pagination.Cursor
+import com.job.library.common.pagination.Page
+import com.job.library.jooq.JooqR2dbcContextFactory
+import com.job.library.jooq.getOrNull
+import com.job.library.jooq.mapper.RecordMapper
 import java.util.UUID
-
 
 private val vacancyMapper: RecordMapper<Vacancy> = {
     val salaryCurrency = it.get(VACANCY.SALARY_CURRENCY)
@@ -28,10 +25,14 @@ private val vacancyMapper: RecordMapper<Vacancy> = {
         description = it.get(VACANCY.DESCRIPTION),
         publisher = it.get(VACANCY.EMPLOYER_ID), // todo change to publisher?
         salaryMin = salaryCurrency?.let { currency ->
-            Money(amount = it.get(VACANCY.SALARY_MIN), currency = currency)
+            val amount: Long? = it.getOrNull(VACANCY.SALARY_MIN)
+
+            amount?.let { Money(amount = it, currency = currency) }
         },
         salaryMax = salaryCurrency?.let { currency ->
-            Money(amount = it.get(VACANCY.SALARY_MIN), currency = currency)
+            val amount: Long? = it.getOrNull(VACANCY.SALARY_MAX)
+
+            amount?.let { Money(amount = it, currency = currency) }
         },
         workType = it.get(VACANCY.WORK_TYPE)?.let { type -> WorkType.valueOf(type) },
         location = it.get(VACANCY.LOCATION),

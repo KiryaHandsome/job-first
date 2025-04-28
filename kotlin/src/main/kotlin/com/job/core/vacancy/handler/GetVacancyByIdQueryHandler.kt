@@ -1,9 +1,9 @@
 package com.job.core.vacancy.handler
 
-import com.job.library.command.CommandHandler
 import com.job.core.vacancy.command.GetVacancyByIdQuery
 import com.job.core.vacancy.dao.VacancyDao
 import com.job.core.vacancy.domain.Vacancy
+import com.job.library.command.CommandHandler
 
 class GetVacancyByIdQueryHandler(
     private val vacancyDao: VacancyDao,

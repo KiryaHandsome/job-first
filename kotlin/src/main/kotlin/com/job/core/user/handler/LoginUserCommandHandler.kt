@@ -18,12 +18,16 @@ class LoginUserCommandHandler(
     }
 
     override suspend fun handle(command: LoginUserCommand): AccessToken {
-        val creds = userDao.findCredentialsByEmail(command.email) ?: throw invalidCredentialsError
+        val userLoginInfo = userDao.findUserLoginInfoByEmail(command.email) ?: throw invalidCredentialsError
 
-        if (!passwordEncoder.verifyPassword(command.password, creds.passwordHash)) {
+        if (!passwordEncoder.verifyPassword(command.password, userLoginInfo.passwordHash)) {
             throw invalidCredentialsError
         }
 
-        return tokenManager.generateAccessToken(email = creds.email, userRole = creds.role)
+        return tokenManager.generateAccessToken(
+            email = userLoginInfo.email,
+            userRole = userLoginInfo.role,
+            userId = userLoginInfo.userId,
+        )
     }
 }

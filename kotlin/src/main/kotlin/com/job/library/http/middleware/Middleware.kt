@@ -1,9 +1,11 @@
 package com.job.library.http.middleware
 
-import com.job.library.command.BaseCommand
-import io.ktor.http.Headers
+import com.job.library.command.Command
+import io.ktor.http.*
 
 interface Middleware {
 
-    fun process(command: BaseCommand<*>, headers: Headers)
+    fun doBefore(command: Command<*>, headers: Headers)
+
+    fun doAfter(command: Command<*>, headers: Headers)
 }

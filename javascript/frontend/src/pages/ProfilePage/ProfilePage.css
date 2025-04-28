@@ -1,0 +1,125 @@
+.profile-page {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.profile-header h1 {
+    margin: 0;
+    color: #333;
+    font-size: 2rem;
+}
+
+.edit-button {
+    padding: 0.75rem 1.5rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+
+.edit-button:hover {
+    background-color: #0056b3;
+}
+
+.profile-content {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
+
+.profile-section {
+    margin-bottom: 2rem;
+}
+
+.profile-section:last-child {
+    margin-bottom: 0;
+}
+
+.profile-section h2 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.profile-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.info-label {
+    color: #666;
+    font-size: 0.875rem;
+}
+
+.info-value {
+    color: #333;
+    font-size: 1rem;
+}
+
+.profile-about {
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    white-space: pre-wrap;
+}
+
+.profile-loading,
+.profile-error {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.25rem;
+    color: #666;
+}
+
+.profile-error {
+    color: #dc3545;
+}
+
+@media (max-width: 768px) {
+    .profile-page {
+        padding: 1rem;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .profile-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .profile-content {
+        padding: 1rem;
+    }
+
+    .profile-section h2 {
+        font-size: 1.25rem;
+    }
+
+    .profile-info {
+        grid-template-columns: 1fr;
+    }
+} 

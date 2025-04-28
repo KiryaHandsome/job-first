@@ -1,13 +1,15 @@
 package com.job.core.user.dao
 
 import com.job.core.user.domain.User
-import com.job.core.user.domain.UserCredentials
+import com.job.core.user.domain.UserLoginInfo
 import com.job.core.user.domain.UserRole
 import com.job.core.user.domain.UserStatus
 import com.job.core.user.domain.command.CreateUserDomainCommand
+import com.job.core.user.domain.command.EditUserInfoDomainCommand
 import com.job.generated.jooq.tables.User.USER
 import com.job.library.jooq.JooqR2dbcContextFactory
 import com.job.library.jooq.mapper.RecordMapper
+import org.jooq.impl.DSL
 import java.time.Instant
 
 private val userMapper: RecordMapper<User> = {
@@ -43,19 +45,43 @@ class UserDao(
         }
     }
 
-    fun findCredentialsByEmail(email: String): UserCredentials? {
+    fun findUserLoginInfoByEmail(email: String): UserLoginInfo? {
         return jooqR2dbcContextFactory.fetchOneAndAwaitNullable(
             mapper = {
-                UserCredentials(
+                UserLoginInfo(
                     email = it.get(USER.EMAIL),
                     passwordHash = it.get(USER.PASSWORD_HASH),
-                    role = UserRole.valueOf(it.get(USER.ROLE))
+                    role = UserRole.valueOf(it.get(USER.ROLE)),
+                    userId = it.get(USER.ID)
                 )
             }
         ) {
-            select(USER.EMAIL, USER.PASSWORD_HASH, USER.ROLE)
+            select(USER.EMAIL, USER.PASSWORD_HASH, USER.ROLE, USER.ID)
                 .from(USER)
                 .where(USER.EMAIL.eq(email))
+        }
+    }
+
+    fun findUserByEmail(email: String): User? {
+        return jooqR2dbcContextFactory.fetchOneAndAwaitNullable(
+            mapper = userMapper
+        ) {
+            select(DSL.asterisk())
+                .from(USER)
+                .where(USER.EMAIL.eq(email))
+        }
+    }
+
+    fun edit(cmd: EditUserInfoDomainCommand) {
+        jooqR2dbcContextFactory.use {
+            update(USER)
+                .set(USER.ID, cmd.id)
+                .set(USER.EMAIL, cmd.email)
+                .set(USER.FIRST_NAME, cmd.firstName)
+                .set(USER.LAST_NAME, cmd.lastName)
+                .set(USER.MIDDLE_NAME, cmd.middleName)
+                .set(USER.UP, cmd.registeredAt.toEpochMilli())
+                .where()
         }
     }
 }

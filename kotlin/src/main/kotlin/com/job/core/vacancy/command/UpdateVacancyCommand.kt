@@ -13,7 +13,7 @@ data class UpdateVacancyCommand(
     val salary: String?,
     val requirements: List<String>,
     val postedDate: String
-) : UnitCommand {
+) : UnitCommand() {
 
     companion object : UriAware {
         override fun uri(): String = "com.job.vacancy.update"

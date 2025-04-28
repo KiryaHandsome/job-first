@@ -19,11 +19,11 @@ data class CreateVacancyCommand(
     val experienceLevel: ExperienceLevel?,
     val createdAtMillis: Long,
     val editedAtMillis: Long,
-) : UnitCommand {
+) : UnitCommand() {
 
     companion object : UriAware, WithRoles {
         override fun uri(): String = "com.job.vacancy.create"
 
-        override fun roles(): Set<UserRole> = EnumSet.of(UserRole.EMPLOYER)
+        override fun roles(): Set<UserRole> = EnumSet.of(UserRole.EMPLOYER, UserRole.USER)
     }
 }

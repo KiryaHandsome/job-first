@@ -1,7 +1,7 @@
 package com.job.library.http
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.job.library.command.BaseCommand
+import com.job.library.command.Command
 import com.job.library.command.CommandHandlerRegistry
 import com.job.library.common.pagination.WithCursor
 import com.job.library.http.middleware.MiddlewareRegistry
@@ -22,18 +22,18 @@ class RpcRouter(
     }
 
     suspend fun routePost(uri: String, body: InputStream, headers: Headers): HttpResponse {
-        try {
-            val handlerInfo = commandHandlerRegistry.findHandlerInfo(uri) ?: error("No handler found for uri $uri")
+        val handlerInfo = commandHandlerRegistry.findHandlerInfo(uri) ?: error("No handler found for uri $uri")
 
+        try {
             val command = objectMapper.readValue(body, handlerInfo.commandClass.java)
 
             validateCommand(command)
 
-            runMiddlewares(command, headers)
+            runMiddlewaresBefore(command, headers)
 
             val response = handlerInfo.commandHandler.handle(command)
 
-            return HttpResponse(statusCode = HttpStatusCode.OK, response)
+            return HttpResponse(statusCode = HttpStatusCode.OK, body = response)
         } catch (e: Throwable) {
             logger.error("Error occurred on uri {}. Message: {}", uri, e.message, e)
 
@@ -43,15 +43,23 @@ class RpcRouter(
                     message = e.message ?: "Internal Server Error",
                 )
             )
+        } finally {
+            // todo: rewrite to chain of responsibility
+//            runMiddlewaresAfter(command, headers)
         }
     }
 
-    private fun runMiddlewares(command: BaseCommand<*>, headers: Headers) {
+    private fun runMiddlewaresBefore(command: Command<*>, headers: Headers) {
         middlewareRegistry.getMiddlewares()
-            .forEach { it.process(command, headers) }
+            .forEach { it.doBefore(command, headers) }
     }
 
-    private fun validateCommand(command: BaseCommand<*>) {
+    private fun runMiddlewaresAfter(command: Command<*>, headers: Headers) {
+        middlewareRegistry.getMiddlewares()
+            .forEach { it.doAfter(command, headers) }
+    }
+
+    private fun validateCommand(command: Command<*>) {
         if (command is WithCursor) {
             command.cursor.validate()
         }

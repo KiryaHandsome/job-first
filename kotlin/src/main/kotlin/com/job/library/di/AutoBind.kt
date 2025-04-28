@@ -1,8 +1,10 @@
 package com.job.library.di
 
-import org.kodein.di.*
+import org.kodein.di.DI
+import org.kodein.di.DirectDI
 import org.kodein.di.bindings.NoArgBindingDI
 import org.kodein.di.bindings.Singleton
+import org.kodein.di.instance
 import org.kodein.type.TypeToken
 import org.kodein.type.erased
 import org.kodein.type.typeToken

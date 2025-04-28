@@ -1,5 +1,6 @@
 package com.job
 
+import com.job.library.cors.configureCORS
 import com.job.library.flyway.configureFlyway
 import com.job.library.http.configurePostRpcEndpoints
 import io.ktor.server.application.*
@@ -14,4 +15,5 @@ fun main() {
 fun Application.module() {
     configurePostRpcEndpoints()
     configureFlyway()
+    configureCORS()
 }

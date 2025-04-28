@@ -1,8 +1,5 @@
 package com.job.core.user.handler
 
-import com.job.library.command.CommandHandler
-import com.job.library.common.uuid.Uuid
-import com.job.library.security.PasswordEncoder
 import com.job.core.user.command.RegisterUserCommand
 import com.job.core.user.dao.UserDao
 import com.job.core.user.domain.AccessToken
@@ -10,6 +7,9 @@ import com.job.core.user.domain.UserRole
 import com.job.core.user.domain.UserStatus
 import com.job.core.user.domain.command.CreateUserDomainCommand
 import com.job.core.user.service.TokenManager
+import com.job.library.command.CommandHandler
+import com.job.library.common.uuid.Uuid
+import com.job.library.security.PasswordEncoder
 import java.time.Instant
 
 class RegisterUserCommandHandler(
@@ -21,8 +21,10 @@ class RegisterUserCommandHandler(
     override suspend fun handle(command: RegisterUserCommand): AccessToken {
         validateCommand(command)
 
+        val userId = Uuid.v7()
+
         val domainCommand = CreateUserDomainCommand(
-            id = Uuid.v7(),
+            id = userId,
             passwordHash = passwordEncoder.encode(command.password),
             registeredAt = Instant.now(),
             email = command.email,
@@ -33,7 +35,11 @@ class RegisterUserCommandHandler(
 
         userDao.create(domainCommand)
 
-        return tokenManager.generateAccessToken(email = command.email, userRole = command.role)
+        return tokenManager.generateAccessToken(
+            userId = userId,
+            email = command.email,
+            userRole = command.role,
+        )
     }
 
     private fun validateCommand(command: RegisterUserCommand) {

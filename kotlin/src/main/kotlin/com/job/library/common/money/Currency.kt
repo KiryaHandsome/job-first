@@ -3,6 +3,7 @@ package com.job.library.common.money
 enum class Currency {
     BYN,
     USD,
+    RUB,
 }
 
 val currencyToMinorUnit = mapOf(

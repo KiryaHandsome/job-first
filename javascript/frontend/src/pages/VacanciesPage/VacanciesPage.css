@@ -1,0 +1,20 @@
+.vacancies-page {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.vacancies-page h1 {
+    margin-bottom: 2rem;
+}
+
+.loading {
+    text-align: center;
+    padding: 2rem;
+}
+
+.error {
+    color: red;
+    text-align: center;
+    padding: 2rem;
+}

@@ -1,7 +1,7 @@
 package com.job.library.flyway
 
-import com.job.library.common.db.DatabaseCredentials
 import com.job.core.di.di
+import com.job.library.common.db.DatabaseCredentials
 import io.ktor.server.application.*
 import org.kodein.di.direct
 import org.kodein.di.instance

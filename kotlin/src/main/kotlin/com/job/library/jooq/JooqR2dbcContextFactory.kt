@@ -1,7 +1,7 @@
 package com.job.library.jooq
 
-import com.job.library.common.pagination.Cursor
 import com.job.library.common.db.DatabaseCredentials
+import com.job.library.common.pagination.Cursor
 import com.job.library.common.pagination.Page
 import com.job.library.common.pagination.PageInfo
 import com.job.library.jooq.mapper.RecordMapper

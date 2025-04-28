@@ -1,10 +1,10 @@
 package com.job.core.vacancy.handler
 
-import com.job.library.command.CommandHandler
-import com.job.library.common.pagination.Page
 import com.job.core.vacancy.command.GetVacanciesWithCursorQuery
 import com.job.core.vacancy.dao.VacancyDao
 import com.job.core.vacancy.domain.Vacancy
+import com.job.library.command.CommandHandler
+import com.job.library.common.pagination.Page
 
 class GetVacanciesWithCursorQueryHandler(
     private val vacancyDao: VacancyDao,
