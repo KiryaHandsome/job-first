@@ -11,6 +11,7 @@ import com.job.generated.jooq.tables.Resume;
 import com.job.generated.jooq.tables.ResumeLabel;
 import com.job.generated.jooq.tables.User;
 import com.job.generated.jooq.tables.Vacancy;
+import com.job.generated.jooq.tables.VacancyApply;
 import com.job.generated.jooq.tables.VacancyLabel;
 
 import java.util.Arrays;
@@ -71,6 +72,11 @@ public class Public extends SchemaImpl {
     public final Vacancy VACANCY = Vacancy.VACANCY;
 
     /**
+     * The table <code>public.vacancy_apply</code>.
+     */
+    public final VacancyApply VACANCY_APPLY = VacancyApply.VACANCY_APPLY;
+
+    /**
      * The table <code>public.vacancy_label</code>.
      */
     public final VacancyLabel VACANCY_LABEL = VacancyLabel.VACANCY_LABEL;
@@ -98,6 +104,7 @@ public class Public extends SchemaImpl {
             ResumeLabel.RESUME_LABEL,
             User.USER,
             Vacancy.VACANCY,
+            VacancyApply.VACANCY_APPLY,
             VacancyLabel.VACANCY_LABEL
         );
     }

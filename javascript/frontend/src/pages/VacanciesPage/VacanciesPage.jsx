@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { VacancyList } from '../../components/features/vacancies/VacancyList/VacancyList';
-import { VacancyFilters } from '../../components/features/vacancies/VacancyFilters/VacancyFilters';
-import { post } from '../../utils/api';
+import {useState, useEffect} from 'react';
+import {VacancyList} from '../../components/features/vacancies/VacancyList/VacancyList';
+import {VacancyFilters} from '../../components/features/vacancies/VacancyFilters/VacancyFilters';
+import {apiCall} from '../../utils/api';
 import './VacanciesPage.css';
 
 export function VacanciesPage() {
@@ -11,12 +11,11 @@ export function VacanciesPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [filters, setFilters] = useState({
-        search: '',
-        salaryFrom: '',
-        salaryTo: '',
-        experience: '',
-        employmentType: '',
-        remote: false
+        search: null,
+        salaryFrom: null,
+        currency: null,
+        experience: null,
+        workType: null,
     });
 
     useEffect(() => {
@@ -28,28 +27,27 @@ export function VacanciesPage() {
         try {
             setLoading(true);
             console.log('Fetching vacancies for page:', currentPage);
-            
-            const { data, pageInfo } = await post('com.job.vacancy.get_vacancies_with_cursor', {
+
+            const {data, pageInfo} = await apiCall('com.job.vacancy.get_vacancies_with_cursor', {
+                filters: filters,
                 cursor: {
                     pageNumber: currentPage - 1,
                     pageSize: 10
                 }
             });
 
-            console.log('API Response:', { 
-                data, 
+            console.log('API Response:', {
+                data,
                 pageInfo,
                 currentPage,
-                calculatedTotalPages: Math.ceil(pageInfo.total / pageInfo.pageSize)
             });
 
             setVacancies(Array.isArray(data) ? data : []);
-            const newTotalPages = Math.ceil(pageInfo.total / pageInfo.pageSize);
-            console.log('Setting total pages:', newTotalPages);
-            setTotalPages(newTotalPages);
+            console.log("PageInfo.totalPages:" + pageInfo.totalPages)
+            setTotalPages(pageInfo.totalPages);
         } catch (err) {
             console.error('Error fetching vacancies:', err);
-            setError(err.message);
+            setError("Не удалось загрузить вакансии");
             setVacancies([]);
         } finally {
             setLoading(false);
@@ -58,7 +56,7 @@ export function VacanciesPage() {
 
     const handleFilterChange = (newFilters) => {
         console.log('Filters changed:', newFilters);
-        setFilters(prev => ({ ...prev, ...newFilters }));
+        setFilters(prev => ({...prev, ...newFilters}));
         setCurrentPage(1);
     };
 

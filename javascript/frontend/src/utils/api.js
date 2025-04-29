@@ -54,7 +54,7 @@ export const get = (endpoint) => {
 };
 
 // POST запрос
-export const post = (endpoint, data = {}) => {
+export const apiCall = (endpoint, data = {}) => {
     var body = JSON.stringify(data)
     console.log('Body:', body);
     return apiRequest(endpoint, {

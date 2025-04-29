@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS "user"
     email_verified       BOOLEAN     NOT NULL,
     role                 TEXT        NOT NULL,
     registered_at_millis BIGINT      NOT NULL,
-    status               TEXT, -- blocked, active
+    status               TEXT,
     first_name           TEXT,
     last_name            TEXT,
     middle_name          TEXT,

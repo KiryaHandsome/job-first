@@ -11,6 +11,7 @@ import com.job.generated.jooq.tables.Resume;
 import com.job.generated.jooq.tables.ResumeLabel;
 import com.job.generated.jooq.tables.User;
 import com.job.generated.jooq.tables.Vacancy;
+import com.job.generated.jooq.tables.VacancyApply;
 import com.job.generated.jooq.tables.VacancyLabel;
 
 
@@ -54,6 +55,11 @@ public class Tables {
      * The table <code>public.vacancy</code>.
      */
     public static final Vacancy VACANCY = Vacancy.VACANCY;
+
+    /**
+     * The table <code>public.vacancy_apply</code>.
+     */
+    public static final VacancyApply VACANCY_APPLY = VacancyApply.VACANCY_APPLY;
 
     /**
      * The table <code>public.vacancy_label</code>.

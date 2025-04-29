@@ -5,7 +5,10 @@ import com.job.core.vacancy.domain.ExperienceLevel
 import com.job.core.vacancy.domain.Vacancy
 import com.job.core.vacancy.domain.WorkType
 import com.job.core.vacancy.domain.command.CreateVacancyDomainCommand
+import com.job.core.vacancy.dto.GetVacanciesFilters
+import com.job.core.vacancy.dto.exception.UserAlreadyAppliedToVacancyException
 import com.job.generated.jooq.tables.Vacancy.VACANCY
+import com.job.generated.jooq.tables.VacancyApply.VACANCY_APPLY
 import com.job.library.common.money.Currency
 import com.job.library.common.money.Money
 import com.job.library.common.pagination.Cursor
@@ -13,6 +16,7 @@ import com.job.library.common.pagination.Page
 import com.job.library.jooq.JooqR2dbcContextFactory
 import com.job.library.jooq.getOrNull
 import com.job.library.jooq.mapper.RecordMapper
+import org.jooq.impl.DSL
 import java.util.UUID
 
 private val vacancyMapper: RecordMapper<Vacancy> = {
@@ -61,12 +65,24 @@ class VacancyDao(
         return vacancy
     }
 
-    fun getPageWithCursor(cursor: Cursor): Page<Vacancy> {
+    fun getPageWithCursorAndFilter(cursor: Cursor, filters: GetVacanciesFilters): Page<Vacancy> {
         return jooqR2dbcContextFactory.fetchPageAndAwait(
             cursor = cursor,
             mapper = vacancyMapper,
             table = VACANCY,
             fields = vacancyFields,
+            whereConditions = listOfNotNull(
+                filters.currency?.let { VACANCY.SALARY_CURRENCY.eq(it.name) },
+                filters.workType?.let { VACANCY.WORK_TYPE.eq(it.name) },
+                filters.experience?.let { VACANCY.EXPERIENCE_LEVEL.eq(it.name) },
+                filters.salaryFrom?.let { VACANCY.SALARY_MAX.isNull.or(VACANCY.SALARY_MAX.ge(it.toLong())) },
+
+                // todo: implement full text search
+                filters.search?.let {
+                    VACANCY.DESCRIPTION.likeIgnoreCase("%$it%")
+                        .or(VACANCY.TITLE.likeIgnoreCase("%$it%"))
+                },
+            )
         )
     }
 
@@ -97,5 +113,29 @@ class VacancyDao(
                 .set(VACANCY.LOCATION, command.location)
                 .where(VACANCY.ID.eq(command.id))
         }
+    }
+
+    fun applyUser(vacancyId: UUID, userId: UUID) {
+        jooqR2dbcContextFactory.use(
+            duplicateFactory = {
+                UserAlreadyAppliedToVacancyException(userId = userId, vacancyId = vacancyId)
+            }
+        ) {
+            insertInto(VACANCY_APPLY)
+                .set(VACANCY_APPLY.VACANCY_ID, vacancyId)
+                .set(VACANCY_APPLY.USER_ID, userId)
+        }
+    }
+
+    fun getUserApplies(userId: UUID): Set<UUID> {
+        return jooqR2dbcContextFactory.fetchManyAndAwait(
+            mapper = {
+                it.get(VACANCY_APPLY.VACANCY_ID)
+            }
+        ) {
+            select(VACANCY_APPLY.VACANCY_ID)
+                .from(VACANCY_APPLY)
+                .where(VACANCY_APPLY.USER_ID.eq(userId))
+        }.toSet()
     }
 }

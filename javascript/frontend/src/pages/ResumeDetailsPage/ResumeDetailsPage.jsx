@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { get, post } from '../../utils/api';
+import { apiCall } from '../../utils/api';
 import { EditResumeModal } from '../../components/features/resumes/EditResumeModal/EditResumeModal';
 import './ResumeDetailsPage.css';
 
@@ -19,7 +19,7 @@ const ResumeDetailsPage = () => {
     const fetchResumeDetails = async () => {
         try {
             setLoading(true);
-            const response = await post(`com.job.resume.get_resume_by_id`, { resumeId: id });
+            const response = await apiCall(`com.job.resume.get_resume_by_id`, { resumeId: id });
             console.log('Resume details:', response);
             setResume(response);
             setError(null);
@@ -37,7 +37,7 @@ const ResumeDetailsPage = () => {
 
     const handleEditSubmit = async (updatedResume) => {
         try {
-            const response = await post('com.job.resume.update_resume', {
+            await apiCall('com.job.resume.update_resume', {
                 id: resume.id,
                 ...updatedResume
             });

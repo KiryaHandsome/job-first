@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { get, post } from '../../utils/api';
+import { apiCall } from '../../utils/api';
 import { EditProfileModal } from '../../components/features/profile/EditProfileModal/EditProfileModal';
 import './ProfilePage.css';
 
@@ -16,13 +16,13 @@ const ProfilePage = () => {
     const fetchProfile = async () => {
         try {
             setLoading(true);
-            const response = await post('com.job.user.query.get_user_info');
+            const response = await apiCall('com.job.user.query.get_user_info');
             console.log('Profile data:', response);
             setProfile(response);
             setError(null);
         } catch (err) {
             console.error('Error fetching profile:', err);
-            setError('Failed to load profile data');
+            setError('Не удалось загрузить данные профиля');
         } finally {
             setLoading(false);
         }
@@ -34,9 +34,8 @@ const ProfilePage = () => {
 
     const handleEditSubmit = async (updatedProfile) => {
         try {
-            const response = await post('com.job.user.update_profile', updatedProfile);
-            console.log('Profile updated:', response);
-            setProfile(response);
+            await apiCall('com.job.user.edit', updatedProfile);
+            fetchProfile()
             setIsEditModalOpen(false);
         } catch (err) {
             console.error('Error updating profile:', err);

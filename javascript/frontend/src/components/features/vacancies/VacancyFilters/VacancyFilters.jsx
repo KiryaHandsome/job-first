@@ -1,16 +1,18 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import './VacancyFilters.css';
+import {workTypesMap, experienceLevelsMap} from "../../../../constants/Common.jsx";
 
-export function VacancyFilters({ filters, onFilterChange }) {
+
+export function VacancyFilters({filters, onFilterChange}) {
     const [localFilters, setLocalFilters] = useState(filters);
 
     const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
+        const {name, value, type, checked} = e.target;
         const newValue = type === 'checkbox' ? checked : value;
-        
+
         setLocalFilters(prev => ({
             ...prev,
-            [name]: newValue
+            [name]: newValue === "" ? null : newValue
         }));
     };
 
@@ -27,69 +29,58 @@ export function VacancyFilters({ filters, onFilterChange }) {
                     name="search"
                     value={localFilters.search}
                     onChange={handleChange}
-                    placeholder="Search vacancies..."
+                    placeholder="Поиск по вакансиям..."
                 />
             </div>
 
             <div className="filter-group">
-                <label>Salary Range</label>
+                <label>Зарплата</label>
                 <div className="salary-range">
                     <input
                         type="number"
                         name="salaryFrom"
                         value={localFilters.salaryFrom}
                         onChange={handleChange}
-                        placeholder="From"
+                        placeholder="От"
                     />
-                    <input
-                        type="number"
-                        name="salaryTo"
-                        value={localFilters.salaryTo}
+                    <select
+                        name="currency"
+                        value={localFilters.currency}
                         onChange={handleChange}
-                        placeholder="To"
-                    />
+                        disabled={true}
+                    >
+                        <option value="BYN">BYN</option>
+                    </select>
                 </div>
             </div>
 
             <div className="filter-group">
-                <label>Experience</label>
+                <label>Опыт</label>
                 <select
                     name="experience"
                     value={localFilters.experience}
                     onChange={handleChange}
                 >
-                    <option value="">Any</option>
-                    <option value="no_experience">No Experience</option>
-                    <option value="1-3">1-3 years</option>
-                    <option value="3-5">3-5 years</option>
-                    <option value="5+">5+ years</option>
+                    <option value="">Любой</option>
+                    <option value="NO_EXPERIENCE">{experienceLevelsMap.NO_EXPERIENCE}</option>
+                    <option value="ONE_YEAR">{experienceLevelsMap.ONE_YEAR}</option>
+                    <option value="THREE_YEARS">{experienceLevelsMap.THREE_YEARS}</option>
+                    <option value="SIX_PLUS_YEARS">{experienceLevelsMap.SIX_PLUS_YEARS}</option>
                 </select>
             </div>
 
             <div className="filter-group">
-                <label>Employment Type</label>
+                <label>Формат работы</label>
                 <select
-                    name="employmentType"
+                    name="workType"
                     value={localFilters.employmentType}
                     onChange={handleChange}
                 >
-                    <option value="">Any</option>
-                    <option value="full_time">Full Time</option>
-                    <option value="part_time">Part Time</option>
-                    <option value="contract">Contract</option>
+                    <option value="">Любой</option>
+                    <option value="OFFICE">{workTypesMap.OFFICE}</option>
+                    <option value="REMOTE">{workTypesMap.REMOTE}</option>
+                    <option value="HYBRID">{workTypesMap.HYBRID}</option>
                 </select>
-            </div>
-
-            <div className="filter-group">
-                <label>
-                    <input
-                        type="checkbox"
-                        name="remote"
-                        checked={localFilters.remote}
-                        onChange={handleChange}
-                    />
-                    Remote Only
-                </label>
             </div>
 
             <button type="submit" className="apply-filters">

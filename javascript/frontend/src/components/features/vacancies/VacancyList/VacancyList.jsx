@@ -1,17 +1,8 @@
+import React, { useState } from 'react';
 import './VacancyList.css';
-
-const experienceLevelMap = {
-    NO_EXPERIENCE: 'Без опыта',
-    ONE_YEAR: '1 год',
-    THREE_YEARS: '3 года',
-    SIX_PLUS_YEARS: '6+ лет'
-};
-
-const workTypeMap = {
-    REMOTE: 'Удаленно',
-    OFFICE: 'В офисе',
-    HYBRID: 'Гибридный'
-};
+import {experienceLevelsMap, workTypesMap} from "../../../../constants/Common.jsx";
+import {apiCall} from "../../../../utils/api.js";
+import Notification from '../../../common/Notification/Notification';
 
 const formatSalary = (min, max) => {
     if (!min?.amount && !max?.amount) return 'Зарплата не указана';
@@ -20,10 +11,37 @@ const formatSalary = (min, max) => {
     return `${min.amount.toLocaleString()} - ${max.amount.toLocaleString()} ${min.currency}`;
 };
 
-export function VacancyList({ vacancies, currentPage, totalPages, onPageChange }) {
-    const handleResponse = (vacancyId) => {
-        // TODO: Implement response logic (apply)
-        console.log('Responding to vacancy:', vacancyId);
+export function VacancyList({vacancies, currentPage, totalPages, onPageChange}) {
+    const [notification, setNotification] = useState(null);
+
+    const handleApply = async (vacancyId) => {
+        try {
+            const response = await apiCall('com.job.vacancy.apply', {
+                vacancyId: vacancyId
+            });
+
+            if (response.code === "vacancy.already_applied") {
+                setNotification({
+                    type: 'error',
+                    message: 'Вы уже откликнулись на эту вакансию'
+                });
+            } else {
+                setNotification({
+                    type: 'success',
+                    message: 'Вы успешно откликнулись на вакансию'
+                });
+            }
+        } catch (error) {
+            console.error('Error applying to vacancy:', error);
+            setNotification({
+                type: 'error',
+                message: 'Произошла ошибка при отклике на вакансию'
+            });
+        }
+    };
+
+    const closeNotification = () => {
+        setNotification(null);
     };
 
     const renderPagination = () => {
@@ -110,6 +128,13 @@ export function VacancyList({ vacancies, currentPage, totalPages, onPageChange }
 
     return (
         <div className="vacancy-container">
+            {notification && (
+                <Notification
+                    type={notification.type}
+                    message={notification.message}
+                    onClose={closeNotification}
+                />
+            )}
             <div className="vacancy-list">
                 {vacancies.map((vacancy) => (
                     <div key={vacancy.id} className="vacancy-card">
@@ -120,21 +145,22 @@ export function VacancyList({ vacancies, currentPage, totalPages, onPageChange }
                             </div>
                         </div>
                         <div className="vacancy-info">
-                            <span className="vacancy-type">{workTypeMap[vacancy.workType]}</span>
+                            <span className="vacancy-type">{workTypesMap[vacancy.workType]}</span>
                             {vacancy.location && (
                                 <span className="vacancy-location">{vacancy.location}</span>
                             )}
                         </div>
                         <p className="vacancy-description">{vacancy.description}</p>
                         <div className="vacancy-footer">
-                            <span className="vacancy-experience">{experienceLevelMap[vacancy.experienceLevel]}</span>
+                            <span className="vacancy-experience">{experienceLevelsMap[vacancy.experienceLevel]}</span>
                             <span className="vacancy-views">Просмотров: {vacancy.viewsCount}</span>
                         </div>
-                        <button 
-                            className="vacancy-response-button"
-                            onClick={() => handleResponse(vacancy.id)}
+                        <button
+                            className={`vacancy-response-button ${vacancy.userApplied ? 'applied' : ''}`}
+                            onClick={!vacancy.userApplied ? () => handleApply(vacancy.id) : undefined}
+                            disabled={vacancy.userApplied}
                         >
-                            Откликнуться
+                            {vacancy.userApplied ? 'Вы уже откликнулись' : 'Откликнуться'}
                         </button>
                     </div>
                 ))}

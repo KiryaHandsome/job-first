@@ -7,7 +7,6 @@ export function EditProfileModal({ isOpen, onClose, onSubmit, profile }) {
         lastName: '',
         email: '',
         phone: '',
-        city: '',
         about: ''
     });
 
@@ -18,7 +17,6 @@ export function EditProfileModal({ isOpen, onClose, onSubmit, profile }) {
                 lastName: profile.lastName || '',
                 email: profile.email || '',
                 phone: profile.phone || '',
-                city: profile.city || '',
                 about: profile.about || ''
             });
         }
@@ -87,16 +85,6 @@ export function EditProfileModal({ isOpen, onClose, onSubmit, profile }) {
                             id="phone"
                             name="phone"
                             value={formData.phone}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="city">Город</label>
-                        <input
-                            type="text"
-                            id="city"
-                            name="city"
-                            value={formData.city}
                             onChange={handleChange}
                         />
                     </div>

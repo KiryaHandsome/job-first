@@ -75,13 +75,14 @@ class UserDao(
     fun edit(cmd: EditUserInfoDomainCommand) {
         jooqR2dbcContextFactory.use {
             update(USER)
-                .set(USER.ID, cmd.id)
                 .set(USER.EMAIL, cmd.email)
                 .set(USER.FIRST_NAME, cmd.firstName)
                 .set(USER.LAST_NAME, cmd.lastName)
                 .set(USER.MIDDLE_NAME, cmd.middleName)
-                .set(USER.UP, cmd.registeredAt.toEpochMilli())
-                .where()
+                .set(USER.BIRTH_DATE, cmd.birthDate)
+                .where(
+                    USER.ID.eq(cmd.id)
+                )
         }
     }
 }

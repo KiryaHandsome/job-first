@@ -1,20 +1,7 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import './EditResumeModal.css';
 
-const experienceLevels = [
-    { value: 'NO_EXPERIENCE', label: 'Без опыта' },
-    { value: 'ONE_YEAR', label: '1 год' },
-    { value: 'THREE_YEARS', label: '3 года' },
-    { value: 'SIX_PLUS_YEARS', label: '6+ лет' }
-];
-
-const workTypes = [
-    { value: 'REMOTE', label: 'Удаленно' },
-    { value: 'OFFICE', label: 'В офисе' },
-    { value: 'HYBRID', label: 'Гибридный' }
-];
-
-export function EditResumeModal({ isOpen, onClose, onSubmit, resume }) {
+export function EditResumeModal({isOpen, onClose, onSubmit, resume}) {
     const [formData, setFormData] = useState({
         title: '',
         summary: '',
@@ -43,7 +30,7 @@ export function EditResumeModal({ isOpen, onClose, onSubmit, resume }) {
     }, [resume]);
 
     const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
+        const {name, value, type, checked} = e.target;
         setFormData(prev => ({
             ...prev,
             [name]: type === 'checkbox' ? checked : value
@@ -51,7 +38,7 @@ export function EditResumeModal({ isOpen, onClose, onSubmit, resume }) {
     };
 
     const handleExperienceChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setNewExperience(prev => ({
             ...prev,
             [name]: value
@@ -62,7 +49,7 @@ export function EditResumeModal({ isOpen, onClose, onSubmit, resume }) {
         if (newExperience.company && newExperience.position) {
             setFormData(prev => ({
                 ...prev,
-                experience: [...prev.experience, { ...newExperience }]
+                experience: [...prev.experience, {...newExperience}]
             }));
             setNewExperience({
                 company: '',
@@ -83,7 +70,7 @@ export function EditResumeModal({ isOpen, onClose, onSubmit, resume }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+
         // Преобразуем данные в формат для API
         const resumeData = {
             id: resume.id,
@@ -239,4 +226,4 @@ export function EditResumeModal({ isOpen, onClose, onSubmit, resume }) {
             </div>
         </div>
     );
-} 
+}

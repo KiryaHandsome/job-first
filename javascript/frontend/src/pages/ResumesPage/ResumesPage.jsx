@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { post } from '../../utils/api';
+import { apiCall } from '../../utils/api';
 import { CreateResumeModal } from '../../components/features/resumes/CreateResumeModal/CreateResumeModal';
 import './ResumesPage.css';
 
@@ -18,7 +18,7 @@ export function ResumesPage() {
     const fetchResumes = async () => {
         try {
             setLoading(true);
-            const response = await post('com.job.resume.get_user_resumes');
+            const response = await apiCall('com.job.resume.get_user_resumes');
             console.log('API Response:', response);
             setResumes(response);
             setError(null);
@@ -32,7 +32,7 @@ export function ResumesPage() {
 
     const handleCreateResume = async (resumeData) => {
         try {
-            await post('com.job.resume.create_resume', resumeData);
+            await apiCall('com.job.resume.create_resume', resumeData);
             setIsCreateModalOpen(false);
             fetchResumes();
         } catch (err) {
@@ -88,7 +88,7 @@ export function ResumesPage() {
                             <div className="resume-status">
                                 Статус: {resume.isActive ? 'Видно всем' : 'Не видно никому'}
                             </div>
-                            <div className="resume-actions">
+                            {/* <div className="resume-actions">
                                 <button 
                                     className="edit-button"
                                     onClick={(e) => {
@@ -107,7 +107,7 @@ export function ResumesPage() {
                                 >
                                     Удалить
                                 </button>
-                            </div>
+                            </div> */}
                         </div>
                     ))}
                 </div>

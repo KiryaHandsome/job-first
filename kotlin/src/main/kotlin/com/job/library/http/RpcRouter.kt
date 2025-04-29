@@ -3,6 +3,7 @@ package com.job.library.http
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.job.library.command.Command
 import com.job.library.command.CommandHandlerRegistry
+import com.job.library.common.exception.BaseException
 import com.job.library.common.pagination.WithCursor
 import com.job.library.http.middleware.MiddlewareRegistry
 import com.job.library.http.response.ErrorResponse
@@ -34,11 +35,21 @@ class RpcRouter(
             val response = handlerInfo.commandHandler.handle(command)
 
             return HttpResponse(statusCode = HttpStatusCode.OK, body = response)
+        } catch (e: BaseException) {
+            logger.error("Error occurred on uri {}. Message: {}", uri, e.message, e)
+
+            return HttpResponse(
+                statusCode = HttpStatusCode.OK,
+                body = ErrorResponse(
+                    code = e.code,
+                    message = e.message,
+                )
+            )
         } catch (e: Throwable) {
             logger.error("Error occurred on uri {}. Message: {}", uri, e.message, e)
 
             return HttpResponse(
-                statusCode = HttpStatusCode.InternalServerError,
+                statusCode = HttpStatusCode.OK,
                 body = ErrorResponse(
                     message = e.message ?: "Internal Server Error",
                 )
