@@ -57,7 +57,7 @@ export function ResumesPage() {
         <div className="resumes-page">
             <div className="resumes-header">
                 <h1>Мои резюме</h1>
-                <button 
+                <button
                     className="create-resume-button"
                     onClick={() => setIsCreateModalOpen(true)}
                 >
@@ -68,7 +68,7 @@ export function ResumesPage() {
             {resumes.length === 0 ? (
                 <div className="no-resumes">
                     <p>У вас пока нет резюме</p>
-                    <button 
+                    <button
                         className="create-resume-button"
                         onClick={() => setIsCreateModalOpen(true)}
                     >
@@ -78,36 +78,16 @@ export function ResumesPage() {
             ) : (
                 <div className="resumes-list">
                     {resumes.map(resume => (
-                        <div 
-                            key={resume.id} 
+                        <div
+                            key={resume.id}
                             className="resume-card"
                             onClick={() => handleResumeClick(resume.id)}
                         >
-                            <h3>{resume.title}</h3>
+                            <h3 className="resume-title">{resume.title}</h3>
                             <p className="resume-summary">{resume.summary}</p>
-                            <div className="resume-status">
+                            <p className="resume-status">
                                 Статус: {resume.isActive ? 'Видно всем' : 'Не видно никому'}
-                            </div>
-                            {/* <div className="resume-actions">
-                                <button 
-                                    className="edit-button"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        // TODO: Implement edit functionality
-                                    }}
-                                >
-                                    Редактировать
-                                </button>
-                                <button 
-                                    className="delete-button"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        // TODO: Implement delete functionality
-                                    }}
-                                >
-                                    Удалить
-                                </button>
-                            </div> */}
+                            </p>
                         </div>
                     ))}
                 </div>
@@ -120,4 +100,4 @@ export function ResumesPage() {
             />
         </div>
     );
-} 
+}

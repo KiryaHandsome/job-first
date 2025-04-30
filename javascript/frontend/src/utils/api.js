@@ -5,7 +5,6 @@ const getAuthToken = () => {
     return localStorage.getItem('accessToken');
 };
 
-// Создаем базовые заголовки с авторизацией
 const getHeaders = () => {
     const token = getAuthToken();
 
@@ -46,34 +45,11 @@ export const apiRequest = async (endpoint, options = {}) => {
     }
 };
 
-// GET запрос
-export const get = (endpoint) => {
-    return apiRequest(endpoint, {
-        method: 'GET'
-    });
-};
-
-// POST запрос
 export const apiCall = (endpoint, data = {}) => {
-    var body = JSON.stringify(data)
+    const body = JSON.stringify(data)
     console.log('Body:', body);
     return apiRequest(endpoint, {
         method: 'POST',
         body: body
     });
 };
-
-// PUT запрос
-export const put = (endpoint, data = {}) => {
-    return apiRequest(endpoint, {
-        method: 'PUT',
-        body: JSON.stringify(data)
-    });
-};
-
-// DELETE запрос
-export const del = (endpoint) => {
-    return apiRequest(endpoint, {
-        method: 'DELETE'
-    });
-}; 

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import './VacancyList.css';
 import {experienceLevelsMap, workTypesMap} from "../../../../constants/Common.jsx";
 import {apiCall} from "../../../../utils/api.js";
@@ -13,6 +14,11 @@ const formatSalary = (min, max) => {
 
 export function VacancyList({vacancies, currentPage, totalPages, onPageChange}) {
     const [notification, setNotification] = useState(null);
+    const navigate = useNavigate();
+
+    const handleVacancyClick = (vacancyId) => {
+        navigate(`/vacancies/${vacancyId}`);
+    };
 
     const handleApply = async (vacancyId) => {
         try {
@@ -137,9 +143,13 @@ export function VacancyList({vacancies, currentPage, totalPages, onPageChange}) 
             )}
             <div className="vacancy-list">
                 {vacancies.map((vacancy) => (
-                    <div key={vacancy.id} className="vacancy-card">
+                    <div
+                        key={vacancy.id}
+                        className="vacancy-card"
+                        onClick={() => handleVacancyClick(vacancy.id)}
+                    >
                         <div className="vacancy-header">
-                            <h3 className="vacancy-title">{vacancy.title}</h3>
+                            <div className="vacancy-title">{vacancy.title}</div>
                             <div className="vacancy-salary">
                                 {formatSalary(vacancy.salaryMin, vacancy.salaryMax)}
                             </div>

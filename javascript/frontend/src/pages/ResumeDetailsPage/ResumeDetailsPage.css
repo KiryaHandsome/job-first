@@ -1,181 +1,246 @@
 .resume-details-page {
-    padding: 2rem;
+    padding: 24px;
     max-width: 1200px;
     margin: 0 auto;
+    background-color: #f8f9fa;
+    box-sizing: border-box;
 }
 
+/* Шапка страницы */
 .resume-details-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 16px;
 }
 
+/* Кнопка "Назад" */
 .back-button {
-    padding: 0.5rem 1rem;
-    background-color: #f0f0f0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
+    background: #f5f5f5;
     color: #333;
-    transition: background-color 0.2s;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .back-button:hover {
-    background-color: #e0e0e0;
+    background-color: #eeeeee;
+    border-color: #bdbdbd;
+    transform: translateY(-1px);
 }
 
+/* Блок действий */
 .header-actions {
     display: flex;
-    gap: 1rem;
+    gap: 12px;
 }
 
+/* Основное содержимое */
 .resume-details-content {
     background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 32px;
+    border: 1px solid #e0e0e0;
 }
 
 .resume-details-content h1 {
-    margin: 0 0 1rem 0;
-    color: #333;
+    margin: 0 0 16px 0;
+    color: #222;
     font-size: 2rem;
+    font-weight: 700;
 }
 
+/* Статус резюме */
 .resume-status {
     display: inline-block;
-    padding: 0.25rem 0.75rem;
+    padding: 6px 16px;
     background-color: #e8f5e9;
     color: #2e7d32;
-    border-radius: 16px;
-    font-size: 0.875rem;
-    margin-bottom: 2rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 24px;
 }
 
+/* Секции резюме */
 .resume-section {
-    margin-bottom: 2rem;
+    margin-bottom: 32px;
 }
 
 .resume-section h2 {
-    color: #333;
+    color: #222;
     font-size: 1.5rem;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
     border-bottom: 2px solid #f0f0f0;
+    position: relative;
+}
+
+.resume-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: #1976d2;
 }
 
 .resume-section p {
-    color: #666;
-    line-height: 1.6;
-    margin: 0;
+    color: #555;
+    line-height: 1.7;
+    margin: 0 0 16px 0;
+    font-size: 1rem;
 }
 
+/* Опыт работы */
 .experience-item {
-    margin-bottom: 2rem;
-    padding: 1rem;
-    background-color: #f8f9fa;
-    border-radius: 4px;
+    margin-bottom: 24px;
+    padding: 20px;
+    background-color: #fafafa;
+    border-radius: 8px;
+    border-left: 3px solid #1976d2;
 }
 
 .experience-item h3 {
-    color: #333;
+    color: #222;
     font-size: 1.25rem;
-    margin: 0 0 0.5rem 0;
+    font-weight: 600;
+    margin: 0 0 8px 0;
 }
 
 .experience-company {
-    color: #666;
+    color: #555;
     font-size: 1rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
-
-.company-name {
-    color: #666;
-    /* margin-left: 0;
-    margin-right: auto; */
-}
-
 
 .experience-dates {
-    color: #888;
-    font-size: 0.875rem;
-    margin-bottom: 1rem;
+    color: #757575;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    font-style: italic;
 }
 
-.resume-details-loading,
-.resume-details-error {
-    text-align: center;
-    padding: 2rem;
-    font-size: 1.25rem;
-    color: #666;
-}
-
-.resume-details-error {
-    color: #dc3545;
-}
-
+/* Сетка с информацией */
 .resume-info-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
+    gap: 16px;
 }
 
 .info-item {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 4px;
 }
 
 .info-label {
     color: #666;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 
 .info-value {
     color: #333;
-    font-family: monospace;
-    word-break: break-all;
+    font-size: 1rem;
+    word-break: break-word;
+    padding: 8px 0;
 }
 
+/* Кнопки */
 .edit-button {
-    padding: 0.5rem 1.5rem;
-    background-color: #007bff;
+    background: linear-gradient(135deg, #1976d2, #0d47a1);
     color: white;
     border: none;
-    border-radius: 4px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
     cursor: pointer;
+    transition: all 0.3s ease;
     font-size: 1rem;
-    transition: background-color 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .edit-button:hover {
-    background-color: #0056b3;
+    background: linear-gradient(135deg, #1e88e5, #1565c0);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .delete-button {
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-    font-size: 0.875rem;
-    transition: background-color 0.2s;
-    background-color: #dc3545;
+    background: linear-gradient(135deg, #d32f2f, #b71c1c);
     color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .delete-button:hover {
-    background-color: #c82333;
+    background: linear-gradient(135deg, #e53935, #c62828);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
+/* Состояния загрузки/ошибки */
+.resume-details-loading {
+    text-align: center;
+    padding: 40px;
+    color: #1976d2;
+    font-size: 1.1rem;
+}
+
+.resume-details-error {
+    text-align: center;
+    padding: 40px;
+    color: #d32f2f;
+    font-size: 1.1rem;
+}
+
+/* Адаптивность */
 @media (max-width: 768px) {
     .resume-details-page {
-        padding: 1rem;
+        padding: 16px;
     }
 
     .resume-details-content {
-        padding: 1rem;
+        padding: 20px;
+    }
+
+    .resume-details-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .header-actions {
+        width: 100%;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .edit-button,
+    .delete-button {
+        width: 100%;
     }
 
     .resume-details-content h1 {
@@ -185,15 +250,4 @@
     .resume-section h2 {
         font-size: 1.25rem;
     }
-
-    .resume-details-header {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: flex-start;
-    }
-
-    .header-actions {
-        width: 100%;
-        justify-content: flex-end;
-    }
-} 
+}

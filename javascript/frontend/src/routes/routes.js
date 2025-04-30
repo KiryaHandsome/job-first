@@ -4,6 +4,7 @@ import { VacanciesPage } from '../pages/VacanciesPage/VacanciesPage';
 import ProfilePage from '../pages/ProfilePage/ProfilePage';
 import { ResumesPage } from '../pages/ResumesPage/ResumesPage';
 import  ResumeDetailsPage  from '../pages/ResumeDetailsPage/ResumeDetailsPage';
+import VacancyDetailsPage from '../pages/VacancyDetailsPage/VacancyDetailsPage';
 
 export const routes = [
     {
@@ -26,6 +27,12 @@ export const routes = [
         path: '/vacancies',
         element: <VacanciesPage />,
         public: false,
+        layout: true
+    },
+    {
+        path: '/vacancies/:id',
+        element: <VacancyDetailsPage />,
+        public: true,
         layout: true
     },
     {

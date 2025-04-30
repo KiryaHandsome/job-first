@@ -2,184 +2,248 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-color: #f8f9fa;
+    color: #333;
 }
 
+/* Список вакансий */
 .vacancy-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+    padding: 24px;
     flex: 1;
+    box-sizing: border-box;
 }
 
+/* Карточка вакансии */
 .vacancy-card {
     background: white;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
+    border: 1px solid #e0e0e0;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .vacancy-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    border-color: #d0d0d0;
 }
 
+/* Шапка карточки */
 .vacancy-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 15px;
+    margin-bottom: 16px;
+    flex-direction: column; /* Элементы вертикально */
+    gap: 8px; /* Отступ между строками */
 }
 
 .vacancy-title {
     margin: 0;
-    font-size: 1.2rem;
-    color: #333;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #222;
     flex: 1;
+    line-height: 1.4;
+    word-break: break-word;
 }
 
 .vacancy-salary {
-    font-weight: bold;
-    color: #2c5282;
-    margin-left: 15px;
+    font-weight: 700;
+    color: #1976d2;
     white-space: nowrap;
+    font-size: 1.2rem;
+    background: rgba(25, 118, 210, 0.08);
+    padding: 6px 12px;
+    border-radius: 6px;
+    border-left: 2px solid #1976d2;
+    margin-left: 0; /* Убираем отступ слева */
+    align-self: flex-start; /* Выравниваем по левому краю */
 }
 
+/* Блок с информацией */
 .vacancy-info {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
-    margin-bottom: 15px;
-    color: #666;
+    margin-bottom: 16px;
 }
 
 .vacancy-type,
 .vacancy-location {
-    padding: 4px 8px;
-    background: #f0f0f0;
-    border-radius: 4px;
+    padding: 6px 12px;
+    background: #f5f5f5;
+    border-radius: 6px;
     font-size: 0.9rem;
+    color: #555;
+    border-left: 2px solid #90caf9;
 }
 
+/* Описание */
 .vacancy-description {
-    color: #666;
-    margin-bottom: 15px;
-    line-height: 1.5;
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.6;
     flex: 1;
+    font-size: 0.95rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-word;
 }
 
+/* Футер карточки */
 .vacancy-footer {
     display: flex;
     justify-content: space-between;
-    color: #666;
-    font-size: 0.9rem;
-    margin-bottom: 15px;
+    align-items: center;
+    margin-top: auto;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
 .vacancy-experience {
-    padding: 4px 8px;
-    background: #e6f7ff;
-    border-radius: 4px;
-    color: #1890ff;
+    padding: 6px 12px;
+    background: rgba(25, 118, 210, 0.08);
+    border-radius: 6px;
+    color: #1976d2;
+    font-size: 0.9rem;
+    white-space: nowrap;
 }
 
 .vacancy-views {
-    color: #999;
+    color: #757575;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
 }
 
+/* Кнопка отклика */
 .vacancy-response-button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
+    background: linear-gradient(135deg, #1976d2, #0d47a1);
     color: white;
     border: none;
-    border-radius: 4px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
     cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin-top: 16px;
+    text-align: center;
 }
 
 .vacancy-response-button:hover:not(:disabled) {
-    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #1e88e5, #1565c0);
+}
+
+.vacancy-response-button:active:not(:disabled) {
+    transform: translateY(0);
 }
 
 .vacancy-response-button:disabled {
-    background-color: #e0e0e0;
-    color: #666;
+    background: #e0e0e0;
+    color: #9e9e9e;
     cursor: not-allowed;
+    box-shadow: none;
 }
 
 .vacancy-response-button.applied {
-    background-color: #f5f5f5;
-    color: #757575;
+    background: #388e3c;
+    color: #ffffff;
 }
 
 .applied-text {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
 }
 
-.vacancy-response-button {
-    background-color: #1890ff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    align-self: flex-start;
-}
-
-.vacancy-response-button:hover {
-    background-color: #40a9ff;
-}
-
-.vacancy-response-button:active {
-    background-color: #096dd9;
-}
-
+/* Пагинация */
 .pagination {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 8px;
-    padding: 20px;
+    padding: 24px;
     margin-top: auto;
+    background: white;
+    border-top: 1px solid #e0e0e0;
+    flex-wrap: wrap;
 }
 
 .pagination-button {
     background-color: white;
-    border: 1px solid #d9d9d9;
-    color: #1890ff;
-    padding: 8px 12px;
-    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+    color: #1976d2;
+    padding: 8px 16px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: all 0.2s;
-    min-width: 32px;
+    transition: all 0.3s ease;
+    min-width: 40px;
     text-align: center;
+    font-weight: 500;
 }
 
 .pagination-button:hover:not(.disabled) {
     background-color: #f5f5f5;
-    border-color: #1890ff;
+    border-color: #1976d2;
+    transform: translateY(-1px);
 }
 
 .pagination-button.active {
-    background-color: #1890ff;
+    background: linear-gradient(135deg, #1976d2, #0d47a1);
     color: white;
-    border-color: #1890ff;
+    border-color: #1976d2;
 }
 
 .pagination-button.disabled {
-    color: #d9d9d9;
+    color: #bdbdbd;
     cursor: not-allowed;
     background-color: #f5f5f5;
+    border-color: #e0e0e0;
 }
 
 .pagination-ellipsis {
-    color: #666;
+    color: #757575;
     padding: 8px 12px;
-} 
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .vacancy-list {
+        grid-template-columns: 1fr;
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .vacancy-card {
+        padding: 20px;
+    }
+
+    .vacancy-header {
+        flex-direction: column;
+    }
+
+    .vacancy-salary {
+        align-self: flex-start;
+        margin-top: 8px;
+    }
+}

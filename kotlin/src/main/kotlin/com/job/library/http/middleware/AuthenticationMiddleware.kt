@@ -25,7 +25,7 @@ class AuthenticationMiddleware(
         if (companion is WithRoles) {
             val roles = companion.roles()
 
-            val tokenHeader = headers[AUTHORIZATION_HEADER] ?: error("Authorization header not found")
+            val tokenHeader = headers[AUTHORIZATION_HEADER] ?: error("Authorization header is missing")
 
             val token = tokenHeader.removePrefix(BEARER_PREFIX)
 

@@ -30,7 +30,7 @@ class GetVacanciesWithCursorQueryHandler(
         )
 
         return Page(
-            data = vacancies.data.map { it.toDto(userAppliedVacancies) },
+            data = vacancies.data.map { VacancyDto.fromModel(it, userAppliedVacancies) },
             pageInfo = vacancies.pageInfo,
         )
     }
