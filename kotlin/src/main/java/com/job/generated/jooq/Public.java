@@ -4,12 +4,14 @@
 package com.job.generated.jooq;
 
 
+import com.job.generated.jooq.tables.Company;
 import com.job.generated.jooq.tables.CompanyDetails;
 import com.job.generated.jooq.tables.FlywaySchemaHistory;
 import com.job.generated.jooq.tables.Label;
 import com.job.generated.jooq.tables.Resume;
 import com.job.generated.jooq.tables.ResumeLabel;
 import com.job.generated.jooq.tables.User;
+import com.job.generated.jooq.tables.UserCompany;
 import com.job.generated.jooq.tables.Vacancy;
 import com.job.generated.jooq.tables.VacancyApply;
 import com.job.generated.jooq.tables.VacancyLabel;
@@ -35,6 +37,11 @@ public class Public extends SchemaImpl {
      * The reference instance of <code>public</code>
      */
     public static final Public PUBLIC = new Public();
+
+    /**
+     * The table <code>public.company</code>.
+     */
+    public final Company COMPANY = Company.COMPANY;
 
     /**
      * The table <code>public.company_details</code>.
@@ -67,6 +74,11 @@ public class Public extends SchemaImpl {
     public final User USER = User.USER;
 
     /**
+     * The table <code>public.user_company</code>.
+     */
+    public final UserCompany USER_COMPANY = UserCompany.USER_COMPANY;
+
+    /**
      * The table <code>public.vacancy</code>.
      */
     public final Vacancy VACANCY = Vacancy.VACANCY;
@@ -97,12 +109,14 @@ public class Public extends SchemaImpl {
     @Override
     public final List<Table<?>> getTables() {
         return Arrays.asList(
+            Company.COMPANY,
             CompanyDetails.COMPANY_DETAILS,
             FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY,
             Label.LABEL,
             Resume.RESUME,
             ResumeLabel.RESUME_LABEL,
             User.USER,
+            UserCompany.USER_COMPANY,
             Vacancy.VACANCY,
             VacancyApply.VACANCY_APPLY,
             VacancyLabel.VACANCY_LABEL

@@ -1,36 +1,22 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import React, {useState} from 'react';
+import {BrowserRouter} from 'react-router-dom';
 import './App.css';
-import { routes } from './routes/routes';
-import { PrivateRoute } from './routes/PrivateRoutes';
-import { Layout } from './components/layout/Layout';
+import AppRoutes from "./routes/AppRoutes.jsx";
+import Navigation from "./components/Navigation.jsx";
 
 function App() {
+    const [isAuthenticated, setIsAuthenticated] = useState(
+        localStorage.getItem("accessToken") != null
+    );
+
     return (
         <BrowserRouter>
-            <Routes>
-                {routes.map((route) => (
-                    <Route
-                        key={route.path}
-                        path={route.path}
-                        element={
-                            route.public ? (
-                                route.element
-                            ) : (
-                                <PrivateRoute>
-                                    {route.layout ? (
-                                        <Layout>
-                                            {route.element}
-                                        </Layout>
-                                    ) : (
-                                        route.element
-                                    )}
-                                </PrivateRoute>
-                            )
-                        }
-                    />
-                ))}
-                <Route path="/" element={<Navigate to="/login" replace />} />
-            </Routes>
+            <div className="app">
+                <Navigation isAuthenticated={isAuthenticated}/>
+                <main className="main-content">
+                    <AppRoutes setIsAuthenticated={setIsAuthenticated}/>
+                </main>
+            </div>
         </BrowserRouter>
     );
 }

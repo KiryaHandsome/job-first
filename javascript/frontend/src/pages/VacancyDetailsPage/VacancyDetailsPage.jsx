@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
 import {apiCall} from '../../utils/api';
 import './VacancyDetailsPage.css';
+import {experienceLevelsMap, workTypesMap} from "../../constants/Common.jsx";
+import {applyToVacancy} from "../../services/VacancyService.js";
 
 export default function VacancyDetailsPage() {
     const {id} = useParams();
@@ -46,6 +48,11 @@ export default function VacancyDetailsPage() {
         navigate(-1);
     };
 
+    const handleApplyClick = () => {
+        const response = applyToVacancy(id);
+        // todo: handle?
+    }
+
     if (loading) {
         return <div className="vacancy-details-page loading">Загрузка...</div>;
     }
@@ -75,19 +82,12 @@ export default function VacancyDetailsPage() {
                     <div className="details-grid">
                         <div className="details-item">
                             <span className="details-label">Тип работы:</span>
-                            <span className="details-value">
-                                {vacancy.workType === 'REMOTE' ? 'Удаленная работа' :
-                                    vacancy.workType === 'OFFICE' ? 'В офисе' :
-                                        vacancy.workType === 'HYBRID' ? 'Гибридная работа' : 'Не указан'}
+                            <span className="details-value">{workTypesMap[vacancy.workType]}
                             </span>
                         </div>
                         <div className="details-item">
                             <span className="details-label">Опыт:</span>
-                            <span className="details-value">
-                                {vacancy.experienceLevel === 'NO_EXPERIENCE' ? 'Без опыта' :
-                                    vacancy.experienceLevel === 'FROM_1_TO_3_YEARS' ? '1-3 года' :
-                                        vacancy.experienceLevel === 'FROM_3_TO_6_YEARS' ? '3-6 лет' :
-                                            vacancy.experienceLevel === 'MORE_THAN_6_YEARS' ? 'Более 6 лет' : 'Не указан'}
+                            <span className="details-value">{experienceLevelsMap[vacancy.experienceLevel]}
                             </span>
                         </div>
                         <div className="details-item">
@@ -125,6 +125,7 @@ export default function VacancyDetailsPage() {
                 <button
                     className={`details-respond-button ${vacancy.userApplied ? 'applied' : ''}`}
                     disabled={vacancy.userApplied}
+                    onClick={handleApplyClick   }
                 >
                     {vacancy.userApplied ? 'Вы уже откликнулись' : 'Откликнуться на вакансию'}
                 </button>

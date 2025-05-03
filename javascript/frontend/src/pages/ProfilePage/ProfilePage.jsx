@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { apiCall } from '../../utils/api';
-import { EditProfileModal } from '../../components/features/profile/EditProfileModal/EditProfileModal';
+import React, {useState, useEffect} from 'react';
+import {apiCall} from '../../utils/api';
+import {EditProfileModal} from '../../components/features/profile/EditProfileModal/EditProfileModal';
 import './ProfilePage.css';
 
 const ProfilePage = () => {
@@ -10,6 +10,7 @@ const ProfilePage = () => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
     useEffect(() => {
+        console.log("ProfilePage")
         fetchProfile();
     }, []);
 

@@ -10,3 +10,5 @@ export const workTypesMap = {
     'OFFICE': 'В офисе',
     'HYBRID': 'Гибридный'
 };
+
+export const EMPLOYER_ROLE = "EMPLOYER"

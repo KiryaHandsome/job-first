@@ -32,7 +32,7 @@ export function VacanciesPage() {
                 filters: filters,
                 cursor: {
                     pageNumber: currentPage - 1,
-                    pageSize: 10
+                    pageSize: 12
                 }
             });
 

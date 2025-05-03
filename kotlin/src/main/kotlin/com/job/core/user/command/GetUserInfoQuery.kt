@@ -11,6 +11,6 @@ class GetUserInfoQuery : AbstractCommand<User>() {
     companion object : UriAware, WithRoles {
         override fun uri(): String = "com.job.user.query.get_user_info"
 
-        override fun roles(): Set<UserRole> = EnumSet.of(UserRole.USER)
+        override fun roles(): Set<UserRole> = EnumSet.of(UserRole.USER, UserRole.EMPLOYER)
     }
 }

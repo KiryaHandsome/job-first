@@ -10,7 +10,7 @@ const getHeaders = () => {
 
     return {
         'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+        ...(token ? {'Authorization': `Bearer ${token}`} : {})
     };
 };
 
@@ -28,7 +28,7 @@ export const apiRequest = async (endpoint, options = {}) => {
             }
         });
 
-        if (!response.ok) {
+        if (!response.ok || response.code != null) {
             // Если получили 401, возможно токен истек
             if (response.status === 401) {
                 localStorage.removeItem('accessToken');

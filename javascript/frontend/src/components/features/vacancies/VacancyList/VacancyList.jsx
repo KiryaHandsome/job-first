@@ -4,6 +4,7 @@ import './VacancyList.css';
 import {experienceLevelsMap, workTypesMap} from "../../../../constants/Common.jsx";
 import {apiCall} from "../../../../utils/api.js";
 import Notification from '../../../common/Notification/Notification';
+import {applyToVacancy} from "../../../../services/VacancyService.js";
 
 const formatSalary = (min, max) => {
     if (!min?.amount && !max?.amount) return 'Зарплата не указана';
@@ -22,9 +23,7 @@ export function VacancyList({vacancies, currentPage, totalPages, onPageChange}) 
 
     const handleApply = async (vacancyId) => {
         try {
-            const response = await apiCall('com.job.vacancy.apply', {
-                vacancyId: vacancyId
-            });
+            const response = await applyToVacancy(vacancyId);
 
             if (response.code === "vacancy.already_applied") {
                 setNotification({

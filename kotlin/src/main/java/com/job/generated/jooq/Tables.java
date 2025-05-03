@@ -4,12 +4,14 @@
 package com.job.generated.jooq;
 
 
+import com.job.generated.jooq.tables.Company;
 import com.job.generated.jooq.tables.CompanyDetails;
 import com.job.generated.jooq.tables.FlywaySchemaHistory;
 import com.job.generated.jooq.tables.Label;
 import com.job.generated.jooq.tables.Resume;
 import com.job.generated.jooq.tables.ResumeLabel;
 import com.job.generated.jooq.tables.User;
+import com.job.generated.jooq.tables.UserCompany;
 import com.job.generated.jooq.tables.Vacancy;
 import com.job.generated.jooq.tables.VacancyApply;
 import com.job.generated.jooq.tables.VacancyLabel;
@@ -20,6 +22,11 @@ import com.job.generated.jooq.tables.VacancyLabel;
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes", "this-escape" })
 public class Tables {
+
+    /**
+     * The table <code>public.company</code>.
+     */
+    public static final Company COMPANY = Company.COMPANY;
 
     /**
      * The table <code>public.company_details</code>.
@@ -50,6 +57,11 @@ public class Tables {
      * The table <code>public.user</code>.
      */
     public static final User USER = User.USER;
+
+    /**
+     * The table <code>public.user_company</code>.
+     */
+    public static final UserCompany USER_COMPANY = UserCompany.USER_COMPANY;
 
     /**
      * The table <code>public.vacancy</code>.

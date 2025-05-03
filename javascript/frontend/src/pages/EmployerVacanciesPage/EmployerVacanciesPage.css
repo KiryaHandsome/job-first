@@ -1,0 +1,180 @@
+.my-vacancies-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.my-vacancies-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.my-vacancies-header h1 {
+    font-size: 2rem;
+    color: #333;
+    margin: 0;
+}
+
+.create-vacancy-button {
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.create-vacancy-button:hover {
+    background-color: #1565c0;
+}
+
+.no-vacancies {
+    text-align: center;
+    padding: 48px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+}
+
+.no-vacancies p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 24px;
+}
+
+.vacancies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+}
+
+.vacancy-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.vacancy-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.vacancy-header {
+    margin-bottom: 16px;
+}
+
+.vacancy-title {
+    font-size: 1.25rem;
+    color: #333;
+    margin: 0 0 8px 0;
+}
+
+.vacancy-salary {
+    font-size: 1.1rem;
+    color: #1976d2;
+    font-weight: 500;
+}
+
+.vacancy-info {
+    margin-bottom: 20px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.info-item .label {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.info-item .value {
+    color: #333;
+    font-weight: 500;
+}
+
+.vacancy-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.edit-button,
+.delete-button {
+    flex: 1;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.edit-button {
+    background-color: #1976d2;
+    color: white;
+    border: none;
+}
+
+.edit-button:hover {
+    background-color: #1565c0;
+}
+
+.delete-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+}
+
+.delete-button:hover {
+    background-color: #d32f2f;
+}
+
+.loading,
+.error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    font-size: 1.2rem;
+}
+
+.loading {
+    color: #1976d2;
+}
+
+.error {
+    color: #d32f2f;
+}
+
+@media (max-width: 768px) {
+    .my-vacancies-page {
+        padding: 16px;
+    }
+
+    .my-vacancies-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+    }
+
+    .vacancies-grid {
+        grid-template-columns: 1fr;
+    }
+} 

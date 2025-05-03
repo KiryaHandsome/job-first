@@ -9,8 +9,8 @@ import com.job.library.security.PasswordEncoder
 
 class LoginUserCommandHandler(
     private val userDao: UserDao,
-    private val passwordEncoder: PasswordEncoder,
     private val tokenManager: TokenManager,
+    private val passwordEncoder: PasswordEncoder,
 ) : CommandHandler<LoginUserCommand, AccessToken> {
 
     companion object {

@@ -7,6 +7,7 @@ import com.job.core.vacancy.domain.WorkType
 import com.job.core.vacancy.domain.command.CreateVacancyDomainCommand
 import com.job.core.vacancy.dto.GetVacanciesFilters
 import com.job.core.vacancy.dto.exception.UserAlreadyAppliedToVacancyException
+import com.job.generated.jooq.tables.UserCompany.USER_COMPANY
 import com.job.generated.jooq.tables.Vacancy.VACANCY
 import com.job.generated.jooq.tables.VacancyApply.VACANCY_APPLY
 import com.job.library.common.money.Currency
@@ -137,5 +138,15 @@ class VacancyDao(
                 .from(VACANCY_APPLY)
                 .where(VACANCY_APPLY.USER_ID.eq(userId))
         }.toSet()
+    }
+
+    fun getEmployerVacancies(employerId: UUID): List<Vacancy> {
+        return jooqR2dbcContextFactory.fetchManyAndAwait(mapper = vacancyMapper) {
+            select(DSL.asterisk())
+                .from(VACANCY)
+                .join(USER_COMPANY).on(USER_COMPANY.USER_ID.eq(VACANCY.EMPLOYER_ID))
+                .where(VACANCY.EMPLOYER_ID.eq(employerId))
+                .orderBy(VACANCY.CREATED_AT_MILLIS.desc())
+        }
     }
 }

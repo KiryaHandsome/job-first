@@ -16,6 +16,10 @@ data class GetVacancyByIdQuery(
     companion object : UriAware, WithRoles {
         override fun uri(): String = "com.job.first.vacancy.get_vacancy_by_id"
 
-        override fun roles(): Set<UserRole> = EnumSet.of(UserRole.ANONYMOUS, UserRole.USER, UserRole.ANONYMOUS)
+        override fun roles(): Set<UserRole> = EnumSet.of(
+            UserRole.ANONYMOUS,
+            UserRole.USER,
+            UserRole.EMPLOYER
+        )
     }
 }

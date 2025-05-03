@@ -17,6 +17,6 @@ data class EditUserInfoCommand(
     companion object : UriAware, WithRoles {
         override fun uri(): String = "com.job.user.edit"
 
-        override fun roles(): Set<UserRole> = EnumSet.of(UserRole.USER)
+        override fun roles(): Set<UserRole> = EnumSet.of(UserRole.USER, UserRole.EMPLOYER)
     }
 }

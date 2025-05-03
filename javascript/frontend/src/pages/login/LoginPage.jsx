@@ -1,20 +1,21 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useState, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 import './LoginPage.css';
-import { Link } from 'react-router-dom';
-import { FaUserPlus } from 'react-icons/fa';
-import { useAuth } from '../../hooks/useAuth';
+import {Link} from 'react-router-dom';
+import {FaUserPlus} from 'react-icons/fa';
+import {useAuth} from '../../hooks/useAuth';
 
-export function LoginPage() {
+export function LoginPage({setIsAuthenticated}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const { login, isAuthenticated } = useAuth();
+    const {login, isAuthenticated} = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
         if (isAuthenticated) {
+            setIsAuthenticated(true);
             navigate('/profile');
         }
     }, [isAuthenticated, navigate]);
@@ -26,9 +27,12 @@ export function LoginPage() {
 
         try {
             const result = await login(email, password);
-            
+
             if (!result.success) {
                 setError('Неверный email или пароль');
+            } else {
+                setIsAuthenticated(true);
+                navigate('/profile');
             }
         } catch (err) {
             setError('Произошла ошибка при входе');
@@ -76,7 +80,7 @@ export function LoginPage() {
                 <div className="register-link-container">
                     <span className="register-text">Еще не зарегистрированы?</span>
                     <Link to="/register" className="register-link">
-                        <FaUserPlus className="register-icon" />
+                        <FaUserPlus className="register-icon"/>
                         Зарегистрироваться
                     </Link>
                 </div>

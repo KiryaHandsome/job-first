@@ -6,6 +6,7 @@ import com.job.library.command.CommandHandlerRegistry
 import com.job.library.common.exception.BaseException
 import com.job.library.common.pagination.WithCursor
 import com.job.library.http.middleware.MiddlewareRegistry
+import com.job.library.http.middleware.exception.NoHandlerForUriException
 import com.job.library.http.response.ErrorResponse
 import com.job.library.http.response.HttpResponse
 import io.ktor.http.*
@@ -23,9 +24,10 @@ class RpcRouter(
     }
 
     suspend fun routePost(uri: String, body: InputStream, headers: Headers): HttpResponse {
-        val handlerInfo = commandHandlerRegistry.findHandlerInfo(uri) ?: error("No handler found for uri $uri")
 
         try {
+            val handlerInfo = commandHandlerRegistry.findHandlerInfo(uri) ?: throw NoHandlerForUriException(uri = uri)
+
             val command = objectMapper.readValue(body, handlerInfo.commandClass.java)
 
             validateCommand(command)

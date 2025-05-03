@@ -136,6 +136,12 @@
     font-style: italic;
 }
 
+.company-name {
+    color: black;
+    font-weight: bold;   /* Жирный */
+    font-style: italic;  /* Курсив */
+}
+
 /* Сетка с информацией */
 .resume-info-grid {
     display: grid;
