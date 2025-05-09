@@ -24,7 +24,6 @@ class RpcRouter(
     }
 
     suspend fun routePost(uri: String, body: InputStream, headers: Headers): HttpResponse {
-
         try {
             val handlerInfo = commandHandlerRegistry.findHandlerInfo(uri) ?: throw NoHandlerForUriException(uri = uri)
 

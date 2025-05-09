@@ -6,10 +6,12 @@
 
 .profile-header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;  /* Элементы будут располагаться вертикально */
+    gap: 1rem;              /* Отступ между элементами */
     margin-bottom: 2rem;
+    align-items: flex-start; /* Выравнивание по левому краю */
 }
+
 
 .profile-header h1 {
     margin: 0;

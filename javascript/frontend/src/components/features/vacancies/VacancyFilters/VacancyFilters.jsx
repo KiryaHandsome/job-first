@@ -84,7 +84,7 @@ export function VacancyFilters({filters, onFilterChange}) {
             </div>
 
             <button type="submit" className="apply-filters">
-                Apply Filters
+                Найти вакансии
             </button>
         </form>
     );

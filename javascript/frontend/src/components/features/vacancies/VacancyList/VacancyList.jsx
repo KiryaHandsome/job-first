@@ -166,7 +166,12 @@ export function VacancyList({vacancies, currentPage, totalPages, onPageChange}) 
                         </div>
                         <button
                             className={`vacancy-response-button ${vacancy.userApplied ? 'applied' : ''}`}
-                            onClick={!vacancy.userApplied ? () => handleApply(vacancy.id) : undefined}
+                            onClick={(e) => {
+                                e.stopPropagation(); // Останавливаем всплытие события
+                                if (!vacancy.userApplied) {
+                                    handleApply(vacancy.id);
+                                }
+                            }}
                             disabled={vacancy.userApplied}
                         >
                             {vacancy.userApplied ? 'Вы уже откликнулись' : 'Откликнуться'}
