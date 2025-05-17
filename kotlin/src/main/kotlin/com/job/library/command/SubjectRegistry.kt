@@ -19,6 +19,11 @@ class SubjectRegistry {
         return findSubject(commandId = commandId) ?: error("Subject for command with id=$commandId not found")
     }
 
+    fun getSubject(cmd: Command<*>): Subject {
+        return findSubject(commandId = cmd.uniqueCommandId)
+            ?: error("Subject for command with id=${cmd.uniqueCommandId} not found")
+    }
+
     fun registerSubject(commandId: UUID, subject: Subject) {
         subjects[commandId] = subject
     }

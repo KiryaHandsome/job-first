@@ -7,6 +7,8 @@ import java.util.UUID
 
 data class CreateUserDomainCommand(
     val id: UUID,
+    val firstName: String,
+    val lastName: String,
     val email: String,
     val emailVerified: Boolean,
     val passwordHash: String,

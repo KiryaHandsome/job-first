@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.job.core.company.domain.Company
 import com.job.core.company.domain.command.CreateCompanyDomainCommand
 import com.job.core.company.domain.command.EditCompanyDomainCommand
+import com.job.core.company.exception.UserAlreadyRegisteredInCompanyException
 import com.job.generated.jooq.tables.Company.COMPANY
 import com.job.generated.jooq.tables.UserCompany.USER_COMPANY
 import com.job.library.jooq.JooqR2dbcContextFactory
@@ -61,7 +62,11 @@ class CompanyDao(
     }
 
     fun registerUserInCompany(userId: UUID, companyId: UUID) {
-        jooqR2dbcContextFactory.use {
+        jooqR2dbcContextFactory.use(
+            duplicateFactory = {
+                UserAlreadyRegisteredInCompanyException(userId = userId)
+            }
+        ) {
             insertInto(USER_COMPANY)
                 .set(USER_COMPANY.USER_ID, userId)
                 .set(USER_COMPANY.COMPANY_ID, companyId)

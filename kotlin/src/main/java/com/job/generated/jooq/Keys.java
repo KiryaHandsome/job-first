@@ -13,7 +13,6 @@ import com.job.generated.jooq.tables.ResumeLabel;
 import com.job.generated.jooq.tables.User;
 import com.job.generated.jooq.tables.UserCompany;
 import com.job.generated.jooq.tables.Vacancy;
-import com.job.generated.jooq.tables.VacancyApply;
 import com.job.generated.jooq.tables.VacancyLabel;
 import com.job.generated.jooq.tables.records.CompanyDetailsRecord;
 import com.job.generated.jooq.tables.records.CompanyRecord;
@@ -23,7 +22,6 @@ import com.job.generated.jooq.tables.records.ResumeLabelRecord;
 import com.job.generated.jooq.tables.records.ResumeRecord;
 import com.job.generated.jooq.tables.records.UserCompanyRecord;
 import com.job.generated.jooq.tables.records.UserRecord;
-import com.job.generated.jooq.tables.records.VacancyApplyRecord;
 import com.job.generated.jooq.tables.records.VacancyLabelRecord;
 import com.job.generated.jooq.tables.records.VacancyRecord;
 
@@ -55,6 +53,5 @@ public class Keys {
     public static final UniqueKey<UserRecord> USER_PKEY = Internal.createUniqueKey(User.USER, DSL.name("user_pkey"), new TableField[] { User.USER.ID }, true);
     public static final UniqueKey<UserCompanyRecord> USER_COMPANY_PKEY = Internal.createUniqueKey(UserCompany.USER_COMPANY, DSL.name("user_company_pkey"), new TableField[] { UserCompany.USER_COMPANY.USER_ID }, true);
     public static final UniqueKey<VacancyRecord> VACANCY_PKEY = Internal.createUniqueKey(Vacancy.VACANCY, DSL.name("vacancy_pkey"), new TableField[] { Vacancy.VACANCY.ID }, true);
-    public static final UniqueKey<VacancyApplyRecord> VACANCY_APPLY_PKEY = Internal.createUniqueKey(VacancyApply.VACANCY_APPLY, DSL.name("vacancy_apply_pkey"), new TableField[] { VacancyApply.VACANCY_APPLY.VACANCY_ID, VacancyApply.VACANCY_APPLY.USER_ID }, true);
     public static final UniqueKey<VacancyLabelRecord> VACANCY_LABEL_PKEY = Internal.createUniqueKey(VacancyLabel.VACANCY_LABEL, DSL.name("vacancy_label_pkey"), new TableField[] { VacancyLabel.VACANCY_LABEL.VACANCY_ID, VacancyLabel.VACANCY_LABEL.LABEL_ID }, true);
 }

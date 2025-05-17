@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
-import {apiCall} from '../../utils/api';
+import {apiCall} from '../../../utils/api.js';
 import './VacancyDetailsPage.css';
-import {experienceLevelsMap, workTypesMap} from "../../constants/Common.jsx";
-import {applyToVacancy} from "../../services/VacancyService.js";
+import {experienceLevelsMap, workTypesMap} from "../../../constants/Common.jsx";
+import {applyToVacancy} from "../../../services/VacancyService.js";
 
 export default function VacancyDetailsPage() {
     const {id} = useParams();
@@ -95,8 +95,8 @@ export default function VacancyDetailsPage() {
                             <span className="details-value">{vacancy.location || 'Не указана'}</span>
                         </div>
                         <div className="details-item">
-                            <span className="details-label">Просмотров:</span>
-                            <span className="details-value">{vacancy.viewsCount}</span>
+                            <span className="details-label">Откликов:</span>
+                            <span className="details-value">{vacancy.appliesCount || 0}</span>
                         </div>
                     </div>
                 </div>

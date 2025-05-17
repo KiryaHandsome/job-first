@@ -7,6 +7,8 @@ import com.job.library.command.UriAware
 
 data class RegisterUserCommand(
     val email: String,
+    val firstName: String,
+    val lastName: String,
     val role: UserRole,
     val password: String,
 ) : AbstractCommand<AccessToken>() {

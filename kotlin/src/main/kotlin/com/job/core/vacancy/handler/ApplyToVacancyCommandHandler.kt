@@ -16,6 +16,7 @@ class ApplyToVacancyCommandHandler(
         vacancyDao.applyUser(
             userId = subject.userId,
             vacancyId = command.vacancyId,
+            resumeId = command.resumeId,
         )
     }
 }

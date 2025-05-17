@@ -5,6 +5,7 @@ import java.util.UUID
 
 data class Vacancy(
     val id: UUID,
+    val status: VacancyStatus,
     val publisher: UUID,
     val title: String,
     val salaryMin: Money?,
@@ -13,7 +14,6 @@ data class Vacancy(
     val location: String?,
     val description: String?,
     val experienceLevel: ExperienceLevel?,
-    val viewsCount: Int?,
     val createdAtMillis: Long,
     val editedAtMillis: Long
 )

@@ -25,6 +25,8 @@ class RegisterUserCommandHandler(
 
         val domainCommand = CreateUserDomainCommand(
             id = userId,
+            firstName = command.firstName,
+            lastName = command.lastName,
             passwordHash = passwordEncoder.encode(command.password),
             registeredAt = Instant.now(),
             email = command.email,

@@ -1,12 +1,14 @@
 package com.job.core.vacancy.domain.command
 
 import com.job.core.vacancy.domain.ExperienceLevel
+import com.job.core.vacancy.domain.VacancyStatus
 import com.job.core.vacancy.domain.WorkType
 import com.job.library.common.money.Money
 import java.util.UUID
 
 data class CreateVacancyDomainCommand(
     val id: UUID,
+    val status: VacancyStatus,
     val publisher: UUID,
     val title: String,
     val salaryMin: Money?,
@@ -15,7 +17,7 @@ data class CreateVacancyDomainCommand(
     val location: String?,
     val description: String?,
     val experienceLevel: ExperienceLevel?,
-    val viewsCount: Int?,
+    val appliesCount: Int,
     val createdAtMillis: Long,
     val editedAtMillis: Long,
 ) {

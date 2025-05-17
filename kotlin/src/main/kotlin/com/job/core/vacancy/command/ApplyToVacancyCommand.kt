@@ -9,6 +9,7 @@ import java.util.UUID
 
 data class ApplyToVacancyCommand(
     val vacancyId: UUID,
+    val resumeId: UUID,
 ) : UnitCommand() {
 
     companion object : UriAware, WithRoles {

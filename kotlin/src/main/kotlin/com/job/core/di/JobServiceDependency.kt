@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.job.core.company.di.companyModule
+import com.job.core.email.di.emailModule
 import com.job.core.resume.di.resumeModule
 import com.job.core.user.di.userModule
 import com.job.core.user.service.TokenManager
@@ -100,5 +101,6 @@ val di = DI {
     import(userModule)
     import(resumeModule)
     import(companyModule)
+    import(emailModule)
 }
 

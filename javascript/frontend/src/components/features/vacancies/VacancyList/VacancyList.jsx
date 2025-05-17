@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import './VacancyList.css';
 import {experienceLevelsMap, workTypesMap} from "../../../../constants/Common.jsx";
-import {apiCall} from "../../../../utils/api.js";
 import Notification from '../../../common/Notification/Notification';
 import {applyToVacancy} from "../../../../services/VacancyService.js";
 
@@ -13,7 +12,7 @@ const formatSalary = (min, max) => {
     return `${min.amount.toLocaleString()} - ${max.amount.toLocaleString()} ${min.currency}`;
 };
 
-export function VacancyList({vacancies, currentPage, totalPages, onPageChange}) {
+export function VacancyList({vacancies, currentPage, totalPages, onPageChange, onApplyClick}) {
     const [notification, setNotification] = useState(null);
     const navigate = useNavigate();
 
@@ -23,19 +22,7 @@ export function VacancyList({vacancies, currentPage, totalPages, onPageChange}) 
 
     const handleApply = async (vacancyId) => {
         try {
-            const response = await applyToVacancy(vacancyId);
-
-            if (response.code === "vacancy.already_applied") {
-                setNotification({
-                    type: 'error',
-                    message: 'Вы уже откликнулись на эту вакансию'
-                });
-            } else {
-                setNotification({
-                    type: 'success',
-                    message: 'Вы успешно откликнулись на вакансию'
-                });
-            }
+            await onApplyClick(vacancyId)
         } catch (error) {
             console.error('Error applying to vacancy:', error);
             setNotification({
@@ -162,7 +149,6 @@ export function VacancyList({vacancies, currentPage, totalPages, onPageChange}) 
                         <p className="vacancy-description">{vacancy.description}</p>
                         <div className="vacancy-footer">
                             <span className="vacancy-experience">{experienceLevelsMap[vacancy.experienceLevel]}</span>
-                            <span className="vacancy-views">Просмотров: {vacancy.viewsCount}</span>
                         </div>
                         <button
                             className={`vacancy-response-button ${vacancy.userApplied ? 'applied' : ''}`}

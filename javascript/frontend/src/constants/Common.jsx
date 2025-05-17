@@ -11,4 +11,17 @@ export const workTypesMap = {
     'HYBRID': 'Гибридный'
 };
 
+export const vacancyStatusMap = {
+    'ACTIVE': 'Активная',
+    'WAITING_FOR_PAYMENT': 'Ожидает оплаты',
+    'ARCHIVED': 'В архиве'
+};
+
 export const EMPLOYER_ROLE = "EMPLOYER"
+export const USER_ROLE = "USER"
+export const ADMIN_ROLE = "ADMIN"
+
+export const currenciesMap = {
+    USD: 'USD',
+    BYN: 'BYN',
+};

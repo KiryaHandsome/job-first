@@ -36,6 +36,8 @@ class UserDao(
         jooqR2dbcContextFactory.use {
             insertInto(USER)
                 .set(USER.ID, cmd.id)
+                .set(USER.FIRST_NAME, cmd.firstName)
+                .set(USER.LAST_NAME, cmd.lastName)
                 .set(USER.EMAIL, cmd.email)
                 .set(USER.EMAIL_VERIFIED, cmd.emailVerified)
                 .set(USER.PASSWORD_HASH, cmd.passwordHash)

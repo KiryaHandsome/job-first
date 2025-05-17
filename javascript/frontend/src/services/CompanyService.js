@@ -15,4 +15,10 @@ export const editCompany = (companyInfo) => {
 };
 
 
+export const addUserToCompany = (userEmail, companyId) => {
+    return apiCall("com.job.company.add_user", {
+        userEmail: userEmail,
+        companyId: companyId
+    })
+}
 

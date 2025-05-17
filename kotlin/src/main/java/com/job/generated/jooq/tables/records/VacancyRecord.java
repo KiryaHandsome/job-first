@@ -202,6 +202,20 @@ public class VacancyRecord extends UpdatableRecordImpl<VacancyRecord> {
         return (Long) get(12);
     }
 
+    /**
+     * Setter for <code>public.vacancy.status</code>.
+     */
+    public void setStatus(String value) {
+        set(13, value);
+    }
+
+    /**
+     * Getter for <code>public.vacancy.status</code>.
+     */
+    public String getStatus() {
+        return (String) get(13);
+    }
+
     // -------------------------------------------------------------------------
     // Primary key information
     // -------------------------------------------------------------------------
@@ -225,7 +239,7 @@ public class VacancyRecord extends UpdatableRecordImpl<VacancyRecord> {
     /**
      * Create a detached, initialised VacancyRecord
      */
-    public VacancyRecord(UUID id, String title, Long salaryMin, Long salaryMax, String salaryCurrency, String workType, String location, String description, String experienceLevel, Integer viewsCount, UUID employerId, Long createdAtMillis, Long editedAtMillis) {
+    public VacancyRecord(UUID id, String title, Long salaryMin, Long salaryMax, String salaryCurrency, String workType, String location, String description, String experienceLevel, Integer viewsCount, UUID employerId, Long createdAtMillis, Long editedAtMillis, String status) {
         super(Vacancy.VACANCY);
 
         setId(id);
@@ -241,6 +255,7 @@ public class VacancyRecord extends UpdatableRecordImpl<VacancyRecord> {
         setEmployerId(employerId);
         setCreatedAtMillis(createdAtMillis);
         setEditedAtMillis(editedAtMillis);
+        setStatus(status);
         resetTouchedOnNotNull();
     }
 }

@@ -18,14 +18,15 @@ CREATE TABLE IF NOT EXISTS label
 CREATE TABLE IF NOT EXISTS vacancy
 (
     id                UUID PRIMARY KEY,
+    status            TEXT NOT NULL,
     title             TEXT   NOT NULL,
     salary_min        BIGINT,
     salary_max        BIGINT,
     salary_currency   TEXT,
-    work_type         TEXT, -- remote, office, hybrid
+    work_type         TEXT,
     location          TEXT,
     description       TEXT,
-    experience_level  TEXT, -- NO, 1_year, 3_years, 6+years
+    experience_level  TEXT,
     views_count       INT,
     employer_id       UUID   NOT NULL,
     created_at_millis BIGINT NOT NULL,

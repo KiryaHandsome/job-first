@@ -1,14 +1,14 @@
 package com.job.core.vacancy.handler
 
-import com.job.core.vacancy.command.UpdateVacancyCommand
+import com.job.core.vacancy.command.EditVacancyCommand
 import com.job.core.vacancy.dao.VacancyDao
 import com.job.library.command.UnitHandler
 
-class UpdateVacancyCommandHandler(
+class EditVacancyCommandHandler(
     private val vacancyDao: VacancyDao,
-) : UnitHandler<UpdateVacancyCommand> {
+) : UnitHandler<EditVacancyCommand> {
 
-    override suspend fun handle(command: UpdateVacancyCommand) {
+    override suspend fun handle(command: EditVacancyCommand) {
         vacancyDao.update(command)
     }
 }

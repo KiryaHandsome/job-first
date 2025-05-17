@@ -1,6 +1,7 @@
 package com.job.core.company.di
 
 import com.job.core.company.dao.CompanyDao
+import com.job.core.company.handler.AddUserToCompanyCommandHandler
 import com.job.core.company.handler.CreateCompanyCommandHandler
 import com.job.core.company.handler.EditCompanyCommandHandler
 import com.job.core.company.handler.GetCompanyForEmployerQueryHandler
@@ -16,5 +17,6 @@ val companyModule = DI.Module("companyModule") {
     autoBind<GetCompanyForEmployerQueryHandler>()
     autoBind<CreateCompanyCommandHandler>()
     autoBind<EditCompanyCommandHandler>()
+    autoBind<AddUserToCompanyCommandHandler>()
 }
 

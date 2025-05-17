@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { apiCall } from '../../utils/api';
-import { EditResumeModal } from '../../components/features/resumes/EditResumeModal/EditResumeModal';
+import React, {useState, useEffect} from 'react';
+import {useParams, useNavigate} from 'react-router-dom';
+import {apiCall} from '../../utils/api';
+import {EditResumeModal} from '../../components/features/resumes/EditResumeModal/EditResumeModal';
 import './ResumeDetailsPage.css';
+import {useAuth} from "../../hooks/useAuth.jsx";
+import {getDate, getDateAndTime} from "../../utils/utils.js";
 
 const ResumeDetailsPage = () => {
-    const { id } = useParams();
+    const {id} = useParams();
+    const {getCurrentUser} = useAuth();
+    const [user, setUser] = useState(null)
     const navigate = useNavigate();
     const [resume, setResume] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -14,12 +18,13 @@ const ResumeDetailsPage = () => {
 
     useEffect(() => {
         fetchResumeDetails();
+        setUser(getCurrentUser())
     }, [id]);
 
     const fetchResumeDetails = async () => {
         try {
             setLoading(true);
-            const response = await apiCall(`com.job.resume.get_resume_by_id`, { resumeId: id });
+            const response = await apiCall(`com.job.resume.get_resume_by_id`, {resumeId: id});
             console.log('Resume details:', response);
             setResume(response);
             setError(null);
@@ -53,14 +58,6 @@ const ResumeDetailsPage = () => {
         navigate('/resumes');
     };
 
-    const formatDate = (timestamp) => {
-        if (!timestamp) return 'Не указано';
-        
-        return new Date(timestamp).toLocaleDateString('ru-RU', {
-            year: 'numeric',
-            month: 'long',
-        });
-    };
 
     if (loading) {
         return <div className="loading">Загрузка...</div>;
@@ -80,9 +77,14 @@ const ResumeDetailsPage = () => {
                 <button className="back-button" onClick={handleBackClick}>
                     ← Назад к списку
                 </button>
+
                 <div className="header-actions">
-                    <button className="edit-button" onClick={handleEditClick}>Редактировать</button>
-                    <button className="delete-button">Удалить</button>
+                    {user?.role === "USER" && (
+                        <>
+                            <button className="edit-button" onClick={handleEditClick}>Редактировать</button>
+                            <button className="delete-button">Удалить</button>
+                        </>
+                    )}
                 </div>
             </div>
 
@@ -110,7 +112,7 @@ const ResumeDetailsPage = () => {
                                     </div>
                                     <div className="company-name">{exp.company}</div>
                                     <div className="experience-dates">
-                                        {formatDate(exp.startDate)} - {exp.endDate ? formatDate(exp.endDate) : 'По настоящее время'}
+                                        {getDate(exp.startDate)} - {exp.endDate ? getDate(exp.endDate) : 'По настоящее время'}
                                     </div>
                                     <p className="experience-description">{exp.description}</p>
                                 </div>
@@ -132,11 +134,11 @@ const ResumeDetailsPage = () => {
                         </div>
                         <div className="info-item">
                             <span className="info-label">Дата создания:</span>
-                            <span className="info-value">{formatDate(resume.createdAtMillis)}</span>
+                            <span className="info-value">{getDateAndTime(resume.createdAtMillis)}</span>
                         </div>
                         <div className="info-item">
                             <span className="info-label">Последнее обновление:</span>
-                            <span className="info-value">{formatDate(resume.editedAtMillis)}</span>
+                            <span className="info-value">{getDateAndTime(resume.editedAtMillis)}</span>
                         </div>
                     </div>
                 </div>
@@ -144,7 +146,9 @@ const ResumeDetailsPage = () => {
 
             <EditResumeModal
                 isOpen={isEditModalOpen}
-                onClose={() => { setIsEditModalOpen(false)}}
+                onClose={() => {
+                    setIsEditModalOpen(false)
+                }}
                 onSubmit={handleEditSubmit}
                 resume={resume}
             />
@@ -152,4 +156,4 @@ const ResumeDetailsPage = () => {
     );
 };
 
-export default ResumeDetailsPage; 
+export default ResumeDetailsPage;

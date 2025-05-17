@@ -26,7 +26,8 @@ class GetVacancyByIdQueryHandler(
 
         return VacancyDto.fromModel(
             vacancy = vacancy,
-            userAppliedVacancies = userAppliedVacancies
+            userAppliedVacancies = userAppliedVacancies,
+            appliesCount = vacancyDao.getVacancyAppliesCount(vacancyId = vacancy.id),
         )
     }
 }

@@ -5,6 +5,7 @@ package com.job.generated.jooq;
 
 
 import com.job.generated.jooq.tables.FlywaySchemaHistory;
+import com.job.generated.jooq.tables.VacancyApply;
 
 import org.jooq.Index;
 import org.jooq.OrderField;
@@ -23,4 +24,5 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     public static final Index FLYWAY_SCHEMA_HISTORY_S_IDX = Internal.createIndex(DSL.name("flyway_schema_history_s_idx"), FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, new OrderField[] { FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.SUCCESS }, false);
+    public static final Index VACANCY_APPLY_ID_IDX = Internal.createIndex(DSL.name("vacancy_apply_id_idx"), VacancyApply.VACANCY_APPLY, new OrderField[] { VacancyApply.VACANCY_APPLY.ID }, true);
 }

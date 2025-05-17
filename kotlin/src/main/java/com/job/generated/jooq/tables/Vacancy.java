@@ -115,6 +115,11 @@ public class Vacancy extends TableImpl<VacancyRecord> {
      */
     public final TableField<VacancyRecord, Long> EDITED_AT_MILLIS = createField(DSL.name("edited_at_millis"), SQLDataType.BIGINT.nullable(false), this, "");
 
+    /**
+     * The column <code>public.vacancy.status</code>.
+     */
+    public final TableField<VacancyRecord, String> STATUS = createField(DSL.name("status"), SQLDataType.CLOB, this, "");
+
     private Vacancy(Name alias, Table<VacancyRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);
     }

@@ -14,6 +14,6 @@ class GetEmployerVacanciesQueryHandler(
     override suspend fun handle(command: GetEmployerVacanciesQuery): List<Vacancy> {
         val subject = subjectRegistry.getSubject(commandId = command.uniqueCommandId)
 
-        return vacancyDao.getEmployerVacancies(employerId = subject.userId)
+        return vacancyDao.getEmployerVacanciesByUserId(userId = subject.userId)
     }
 }

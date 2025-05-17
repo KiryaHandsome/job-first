@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './CompanyPage.css';
-import {createCompany, editCompany, getCompanyForEmployer} from "../../services/CompanyService.js";
+import {addUserToCompany, createCompany, editCompany, getCompanyForEmployer} from "../../services/CompanyService.js";
 import Notification from "../../components/common/Notification/Notification.jsx";
 import {apiCall} from "../../utils/api.js";
 
@@ -12,6 +12,7 @@ const CompanyPage = () => {
     const [hasCompany, setHasCompany] = useState(false);
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [notification, setNotification] = useState(null);
+    const [addEmployerEmail, setAddEmployerEmail] = useState('');
 
     const [formData, setFormData] = useState({
         id: '',
@@ -142,6 +143,39 @@ const CompanyPage = () => {
         setNotification(null);
     };
 
+    const handleAddUserToCompanySubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const result = await addUserToCompany(addEmployerEmail, company.id)
+
+            if (result.code === 'user.not_found') {
+                console.log("user.not_found")
+                setNotification({
+                    type: 'error',
+                    message: 'Пользователь с таким email не зарегистрирован'
+                });
+            } else if (result.code === 'vacancy.user_already_in_company') {
+                setNotification({
+                    type: 'error',
+                    message: 'Пользователь с таким email зарегистрирован в другой компании'
+                });
+            } else {
+                setNotification({
+                    type: 'success',
+                    message: 'Пользователь успешно добавлен'
+                });
+            }
+
+            setAddEmployerEmail('');
+        } catch (error) {
+            setNotification({
+                type: 'error',
+                message: 'Не удалось отправить приглашение'
+            });
+            console.error('Error inviting user:', error);
+        }
+    };
+
     if (loading) {
         return <div className="company-page loading">Loading...</div>;
     }
@@ -252,6 +286,13 @@ const CompanyPage = () => {
 
     return (
         <div className="company-page">
+            {notification && (
+                <Notification
+                    type={notification.type}
+                    message={notification.message}
+                    onClose={closeNotification}
+                />
+            )}
             <div className="company-header">
                 <h1>Информация о компании</h1>
                 {!isEditing && (
@@ -359,6 +400,24 @@ const CompanyPage = () => {
                             <span className="label">Адрес:</span>
                             <span className="value">{company.address || 'Не указан'}</span>
                         </div>
+                    </div>
+
+                    <div className="invite-section">
+                        <h3>Добавить сотрудника в вашу компанию</h3>
+                        <form onSubmit={handleAddUserToCompanySubmit} className="invite-form">
+                            <div className="form-group">
+                                <input
+                                    type="email"
+                                    value={addEmployerEmail}
+                                    onChange={(e) => setAddEmployerEmail(e.target.value)}
+                                    placeholder="Введите email сотрудника..."
+                                    required
+                                />
+                                <button type="submit" className="invite-button">
+                                    Добавить
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             )}

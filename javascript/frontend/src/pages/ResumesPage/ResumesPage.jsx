@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { apiCall } from '../../utils/api';
-import { CreateResumeModal } from '../../components/features/resumes/CreateResumeModal/CreateResumeModal';
+import {useState, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {apiCall} from '../../utils/api';
+import {CreateResumeModal} from '../../components/features/resumes/CreateResumeModal/CreateResumeModal';
 import './ResumesPage.css';
+import {getUserResumes} from "../../services/ResumeService.js";
 
 export function ResumesPage() {
     const navigate = useNavigate();
@@ -18,7 +19,7 @@ export function ResumesPage() {
     const fetchResumes = async () => {
         try {
             setLoading(true);
-            const response = await apiCall('com.job.resume.get_user_resumes');
+            const response = await getUserResumes();
             console.log('API Response:', response);
             setResumes(response);
             setError(null);

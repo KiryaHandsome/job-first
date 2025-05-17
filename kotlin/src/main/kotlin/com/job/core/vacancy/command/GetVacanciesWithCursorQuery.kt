@@ -1,7 +1,6 @@
 package com.job.core.vacancy.command
 
 import com.job.core.user.domain.UserRole
-import com.job.core.vacancy.domain.Vacancy
 import com.job.core.vacancy.dto.GetVacanciesFilters
 import com.job.core.vacancy.dto.VacancyDto
 import com.job.library.command.AbstractCommand

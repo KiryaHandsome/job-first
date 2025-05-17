@@ -29,6 +29,7 @@ export const apiRequest = async (endpoint, options = {}) => {
         });
 
         if (!response.ok || response.code != null) {
+
             // Если получили 401, возможно токен истек
             if (response.status === 401) {
                 localStorage.removeItem('accessToken');
@@ -38,7 +39,11 @@ export const apiRequest = async (endpoint, options = {}) => {
             throw new Error(`API request failed: ${response.statusText}`);
         }
 
-        return await response.json();
+        const result = await response.json()
+
+        console.log("Response: " + JSON.stringify(result))
+
+        return result
     } catch (error) {
         console.error('API request error:', error);
         throw error;

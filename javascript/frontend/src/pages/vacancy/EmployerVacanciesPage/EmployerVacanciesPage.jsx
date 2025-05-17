@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {useAuth} from '../../hooks/useAuth';
-import {apiCall} from '../../utils/api';
+import {apiCall} from '../../../utils/api.js';
 import './EmployerVacanciesPage.css';
-import {getEmployerVacancies} from "../../services/VacancyService.js";
-import {EMPLOYER_ROLE} from "../../constants/Common.jsx";
-import Notification from "../../components/common/Notification/Notification.jsx";
+import {getEmployerVacancies} from "../../../services/VacancyService.js";
+import {EMPLOYER_ROLE, experienceLevelsMap, workTypesMap} from "../../../constants/Common.jsx";
+import Notification from "../../../components/common/Notification/Notification.jsx";
+import {useAuth} from "../../../hooks/useAuth.jsx";
+import {formatSalary} from "../../../utils/utils.js";
 
 const EmployerVacanciesPage = () => {
     const [vacancies, setVacancies] = useState([]);
@@ -20,7 +21,7 @@ const EmployerVacanciesPage = () => {
             setLoading(true);
             const response = await getEmployerVacancies();
 
-            console.log("Employervacancies: " + JSON.stringify(response))
+            console.log("EmployerVacancies: " + JSON.stringify(response))
 
             setVacancies(response);
         } catch (error) {
@@ -70,25 +71,6 @@ const EmployerVacanciesPage = () => {
         }
     };
 
-    const formatSalary = (salary) => {
-        if (!salary) return 'По договоренности';
-
-        if (typeof salary === 'object') {
-            const {min, max, currency} = salary;
-            if (min && max) {
-                return `${min.toLocaleString()} - ${max.toLocaleString()} ${currency}`;
-            }
-            if (min) {
-                return `от ${min.toLocaleString()} ${currency}`;
-            }
-            if (max) {
-                return `до ${max.toLocaleString()} ${currency}`;
-            }
-        }
-
-        return salary;
-    };
-
     if (loading) {
         return <div className="my-vacancies-page loading">Загрузка...</div>;
     }
@@ -123,10 +105,16 @@ const EmployerVacanciesPage = () => {
             ) : (
                 <div className="vacancies-grid">
                     {vacancies.map((vacancy) => (
-                        <div key={vacancy.id} className="vacancy-card">
+                        <div
+                            key={vacancy.id}
+                            className="vacancy-card"
+                            onClick={() => navigate(`/employer-vacancies/${vacancy.id}`)}
+                            style={{cursor: 'pointer'}}
+                        >
                             <div className="vacancy-header">
                                 <h2 className="vacancy-title">{vacancy.title}</h2>
-                                <div className="vacancy-salary">{formatSalary(vacancy.salary)}</div>
+                                <div
+                                    className="vacancy-salary">{formatSalary(vacancy.salaryMin, vacancy.salaryMax)}</div>
                             </div>
 
                             <div className="vacancy-info">
@@ -137,36 +125,31 @@ const EmployerVacanciesPage = () => {
                                 <div className="info-item">
                                     <span className="label">Тип работы:</span>
                                     <span className="value">
-                                        {vacancy.workType === 'REMOTE' ? 'Удаленная работа' :
-                                            vacancy.workType === 'OFFICE' ? 'В офисе' :
-                                                vacancy.workType === 'HYBRID' ? 'Гибридная работа' : 'Не указан'}
+                                        {workTypesMap[vacancy.workType]}
                                     </span>
                                 </div>
                                 <div className="info-item">
                                     <span className="label">Опыт:</span>
                                     <span className="value">
-                                        {vacancy.experienceLevel === 'NO_EXPERIENCE' ? 'Без опыта' :
-                                            vacancy.experienceLevel === 'FROM_1_TO_3_YEARS' ? '1-3 года' :
-                                                vacancy.experienceLevel === 'FROM_3_TO_6_YEARS' ? '3-6 лет' :
-                                                    vacancy.experienceLevel === 'MORE_THAN_6_YEARS' ? 'Более 6 лет' : 'Не указан'}
+                                        {experienceLevelsMap[vacancy.experienceLevel]}
                                     </span>
                                 </div>
                             </div>
 
-                            <div className="vacancy-actions">
-                                <button
-                                    className="edit-button"
-                                    onClick={() => handleEditClick(vacancy.id)}
-                                >
-                                    Редактировать
-                                </button>
-                                <button
-                                    className="delete-button"
-                                    onClick={() => handleDeleteClick(vacancy.id)}
-                                >
-                                    Удалить
-                                </button>
-                            </div>
+                            {/*<div className="vacancy-actions">*/}
+                            {/*    <button*/}
+                            {/*        className="edit-button"*/}
+                            {/*        onClick={() => handleEditClick(vacancy.id)}*/}
+                            {/*    >*/}
+                            {/*        Редактировать*/}
+                            {/*    </button>*/}
+                            {/*    <button*/}
+                            {/*        className="delete-button"*/}
+                            {/*        onClick={() => handleDeleteClick(vacancy.id)}*/}
+                            {/*    >*/}
+                            {/*        Удалить*/}
+                            {/*    </button>*/}
+                            {/*</div>*/}
                         </div>
                     ))}
                 </div>

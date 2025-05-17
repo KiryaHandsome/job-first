@@ -35,7 +35,7 @@ const Navigation = ({isAuthenticated}) => {
         <nav className="navigation">
             <div className="nav-container">
                 <div className="nav-logo">
-                    <Link to="/home">Job First</Link>
+                    <Link to="/">Job First</Link>
                 </div>
                 <div className="nav-links">
                     {isEmployer ? (

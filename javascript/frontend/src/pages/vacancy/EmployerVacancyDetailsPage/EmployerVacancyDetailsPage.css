@@ -1,0 +1,511 @@
+.employer-vacancy-details {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+    color: #333;
+    background-color: #ffffff;
+}
+
+.header-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+/* Общие стили для всех кнопок */
+.archive-button,
+.payment-button,
+.unarchive-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Кнопка архивации */
+.archive-button {
+    background: linear-gradient(135deg, #ff9800, #f57c00);
+    color: white;
+}
+
+.archive-button:hover {
+    background: linear-gradient(135deg, #fb8c00, #e65100);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Кнопка оплаты */
+.payment-button {
+    background: linear-gradient(135deg, #4caf50, #2e7d32);
+    color: white;
+}
+
+.payment-button:hover {
+    background: linear-gradient(135deg, #66bb6a, #388e3c);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Кнопка разархивации */
+.unarchive-button {
+    background: linear-gradient(135deg, #2196f3, #0d47a1);
+    color: white;
+}
+
+.unarchive-button:hover {
+    background: linear-gradient(135deg, #42a5f5, #1565c0);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Общие состояния */
+.archive-button:active,
+.payment-button:active,
+.unarchive-button:active {
+    transform: translateY(0);
+}
+
+.archive-button:disabled,
+.payment-button:disabled,
+.unarchive-button:disabled {
+    background: #e0e0e0;
+    color: #9e9e9e;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Кнопка архивации */
+.archive-button::before {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M20.54 5.23l-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27zM12 17.5L6.5 12H10v-2h4v2h3.5L12 17.5zM5.12 5l.81-1h12l.94 1H5.12z'/%3E%3C/svg%3E");
+    margin-right: 8px;
+}
+
+/* Кнопка оплаты */
+.payment-button::before {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-5h2v5zm4 0h-2V9h2v7z'/%3E%3C/svg%3E");
+    margin-right: 8px;
+}
+
+/* Кнопка разархивации */
+.unarchive-button::before {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M20.54 5.23l-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27zM10 12l4 4 4-4h-3v-4h-2v4h-3z'/%3E%3C/svg%3E");
+    margin-right: 8px;
+}
+
+/* Мобильная версия */
+@media (max-width: 768px) {
+    .archive-button,
+    .payment-button,
+    .unarchive-button {
+        width: 100%;
+        justify-content: center;
+        padding: 12px;
+    }
+}
+/* Иконка архива (опционально) */
+.archive-button::before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M20.54 5.23l-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27zM12 17.5L6.5 12H10v-2h4v2h3.5L12 17.5zM5.12 5l.81-1h12l.94 1H5.12z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+/* Для мобильных устройств */
+@media (max-width: 768px) {
+    .archive-button {
+        width: 100%;
+        justify-content: center;
+        padding: 12px;
+    }
+}
+
+.back-button,
+.edit-button {
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.back-button {
+    background: #f5f5f5;
+    color: #333;
+    border: 1px solid #e0e0e0;
+}
+
+.edit-button {
+    background: #1976d2;
+    color: white;
+    border: none;
+}
+
+.back-button:hover {
+    background-color: #eeeeee;
+    border-color: #bdbdbd;
+    transform: translateY(-1px);
+}
+
+.edit-button:hover {
+    background-color: #1565c0;
+    transform: translateY(-1px);
+}
+
+.details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.details-title {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #222;
+    flex: 1;
+    padding: 0.5rem 0;
+    letter-spacing: 0.25px;
+    line-height: 1.3;
+}
+
+.details-salary {
+    font-weight: 700;
+    color: #1976d2;
+    margin-left: 15px;
+    white-space: nowrap;
+    font-size: 1.5rem;
+    background: rgba(25, 118, 210, 0.08);
+    padding: 8px 16px;
+    border-radius: 6px;
+    border-left: 3px solid #1976d2;
+}
+
+.tabs {
+    display: flex;
+    gap: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 2rem;
+}
+
+.tab {
+    padding: 1rem 2rem;
+    border: none;
+    background: none;
+    font-size: 1rem;
+    color: #666;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.tab.active {
+    color: #1976d2;
+    font-weight: 600;
+}
+
+.tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #1976d2;
+}
+
+.details-info {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.details-section {
+    background: #fafafa;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+}
+
+.details-section h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #222;
+    position: relative;
+    padding-bottom: 8px;
+}
+
+.details-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: #1976d2;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
+}
+
+.details-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.details-label {
+    color: #666;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.details-value {
+    padding: 10px 14px;
+    background: #f5f5f5;
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #333;
+    width: fit-content;
+    border-left: 3px solid #90caf9;
+}
+
+.details-value.status {
+    border-left-color: #4caf50;
+}
+
+.details-description {
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    font-size: 1.05rem;
+    white-space: pre-line;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    text-align: center;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1976d2;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.responses-section {
+    padding: 1rem 0;
+}
+
+.responses-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.response-card {
+    background: #fafafa;
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid #e0e0e0;
+}
+
+.response-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.applicant-info h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #222;
+}
+
+.response-date {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.status-badge.pending {
+    background-color: #fff3e0;
+    color: #e65100;
+}
+
+.status-badge.accepted {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status-badge.rejected {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.response-message {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.response-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.view-profile-btn,
+.accept-btn,
+.reject-btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.view-profile-btn {
+    background: #1976d2;
+    color: white;
+    border: none;
+}
+
+.accept-btn {
+    background: #4caf50;
+    color: white;
+    border: none;
+}
+
+.reject-btn {
+    background: #f5f5f5;
+    color: #d32f2f;
+    border: 1px solid #e0e0e0;
+}
+
+.view-profile-btn:hover {
+    background: #1565c0;
+}
+
+.accept-btn:hover {
+    background: #388e3c;
+}
+
+.reject-btn:hover {
+    background: #ffebee;
+}
+
+.no-responses {
+    text-align: center;
+    padding: 48px;
+    color: #666;
+    background: #fafafa;
+    border-radius: 12px;
+    font-size: 1.1rem;
+}
+
+.loading,
+.error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    font-size: 18px;
+}
+
+.loading {
+    color: #1976d2;
+}
+
+.error {
+    color: #d32f2f;
+}
+
+@media (max-width: 768px) {
+    .employer-vacancy-details {
+        padding: 16px;
+    }
+
+    .header-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .details-header {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .details-title {
+        font-size: 1.5rem;
+    }
+
+    .details-salary {
+        margin-left: 0;
+        align-self: flex-start;
+        font-size: 1.3rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .response-header {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .response-actions {
+        flex-direction: column;
+    }
+} 

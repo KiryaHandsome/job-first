@@ -53,6 +53,20 @@ export function useAuth() {
         }
     };
 
+    const register = async (userData) => {
+        try {
+            const response = await apiCall('com.job.user.register', userData);
+
+            localStorage.setItem('accessToken', response.accessToken);
+            console.log("setToken: " + response.accessToken)
+            setToken(response.accessToken)
+
+            return {success: true}
+        } catch (error) {
+            throw new Error(error.message || 'Ошибка при регистрации');
+        }
+    };
+
     const logout = () => {
         localStorage.removeItem('accessToken');
         setToken(null);
@@ -66,5 +80,6 @@ export function useAuth() {
         getCurrentUser,
         login,
         logout,
+        register,
     };
 }

@@ -4,15 +4,18 @@
 package com.job.generated.jooq.tables;
 
 
-import com.job.generated.jooq.Keys;
+import com.job.generated.jooq.Indexes;
 import com.job.generated.jooq.Public;
 import com.job.generated.jooq.tables.records.VacancyApplyRecord;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 import org.jooq.Condition;
 import org.jooq.Field;
+import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.PlainSQL;
 import org.jooq.QueryPart;
@@ -23,7 +26,6 @@ import org.jooq.Stringly;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
-import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
@@ -60,6 +62,26 @@ public class VacancyApply extends TableImpl<VacancyApplyRecord> {
      */
     public final TableField<VacancyApplyRecord, UUID> USER_ID = createField(DSL.name("user_id"), SQLDataType.UUID.nullable(false), this, "");
 
+    /**
+     * The column <code>public.vacancy_apply.resume_id</code>.
+     */
+    public final TableField<VacancyApplyRecord, UUID> RESUME_ID = createField(DSL.name("resume_id"), SQLDataType.UUID, this, "");
+
+    /**
+     * The column <code>public.vacancy_apply.applied_at_millis</code>.
+     */
+    public final TableField<VacancyApplyRecord, Long> APPLIED_AT_MILLIS = createField(DSL.name("applied_at_millis"), SQLDataType.BIGINT, this, "");
+
+    /**
+     * The column <code>public.vacancy_apply.status</code>.
+     */
+    public final TableField<VacancyApplyRecord, String> STATUS = createField(DSL.name("status"), SQLDataType.CLOB, this, "");
+
+    /**
+     * The column <code>public.vacancy_apply.id</code>.
+     */
+    public final TableField<VacancyApplyRecord, UUID> ID = createField(DSL.name("id"), SQLDataType.UUID, this, "");
+
     private VacancyApply(Name alias, Table<VacancyApplyRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);
     }
@@ -95,8 +117,8 @@ public class VacancyApply extends TableImpl<VacancyApplyRecord> {
     }
 
     @Override
-    public UniqueKey<VacancyApplyRecord> getPrimaryKey() {
-        return Keys.VACANCY_APPLY_PKEY;
+    public List<Index> getIndexes() {
+        return Arrays.asList(Indexes.VACANCY_APPLY_ID_IDX);
     }
 
     @Override
