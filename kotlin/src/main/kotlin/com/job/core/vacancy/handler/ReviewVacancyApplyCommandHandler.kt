@@ -11,7 +11,7 @@ import java.util.UUID
 
 class ReviewVacancyApplyCommandHandler(
     private val vacancyDao: VacancyDao,
-    private val emailSender: EmailSender,
+//    private val emailSender: EmailSender,
 ) : UnitHandler<ReviewVacancyApplyCommand> {
 
     override suspend fun handle(command: ReviewVacancyApplyCommand) {
@@ -24,15 +24,17 @@ class ReviewVacancyApplyCommandHandler(
             id = command.id,
             status = applyStatus
         )
+
+        sendEmail(applyStatus, command.id)
     }
 
     private fun sendEmail(applyStatus: ApplyStatus, applyId: UUID) {
-        emailSender.sendEmail(
-            email = EmailInfo(
-                to = "",
-                subject = "Результат отклика на вакансию",
-                body = TODO(),
-            )
-        )
+//        emailSender.sendEmail(
+//            email = EmailInfo(
+//                to = "",
+//                subject = "Результат отклика на вакансию",
+//                body = TODO(),
+//            )
+//        )
     }
 }

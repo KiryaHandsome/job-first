@@ -6,6 +6,7 @@ postgresql = "42.7.5"
 postgresql_r2dbc = "1.0.7.RELEASE"
 flyway = "11.6.0"
 jbcrypt = "0.4"
+kotest = "5.9.1"
 
 [libraries]
 kodein = { module = "org.kodein.di:kodein-di", version.ref = "kodein-di" }
@@ -19,5 +20,6 @@ postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" 
 flyway = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
 flyway_postgresql = { module = "org.flywaydb:flyway-database-postgresql", version.ref = "flyway" }
 jbcrypt = { module = "org.mindrot:jbcrypt", version.ref = "jbcrypt" }
+kotest = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 
 [plugins]

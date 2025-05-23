@@ -6,8 +6,7 @@ import io.ktor.server.plugins.cors.routing.*
 
 fun Application.configureCORS() {
     install(CORS) {
-        allowHost("localhost:3000")
-
+        anyHost()
 
         allowCredentials = true
 
