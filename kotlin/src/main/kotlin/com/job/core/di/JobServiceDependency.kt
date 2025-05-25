@@ -79,7 +79,7 @@ val mainModule = DI.Module("mainModule") {
             userName = "postgres",
             password = "password",
             databaseName = "job_first",
-            host = "localhost",
+            host = "host.docker.internal",
             driver = "postgresql",
             port = 5432,
         )
